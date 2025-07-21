@@ -1,7 +1,0 @@
-config A
-	bool "A"
-
-config X
-	bool
-	default n
-	depends on A

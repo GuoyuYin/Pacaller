@@ -1,7 +1,0 @@
-config A
-	bool "A"
-	select X
-
-config X
-	bool
-	default n

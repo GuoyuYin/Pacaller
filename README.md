@@ -47,7 +47,7 @@ This step corresponds to the **Resource Identification** stage in the paper. You
 
 #### Step 3: Fuzzing Input Generation
 
-This step corresponds to the **Fuzzing Input Generation** stage. Once resource extraction is complete, you will run the tools in the `Resource-Generation` directory. These tools use the intermediate files from the previous step to produce the final fuzzing inputs:
+This step corresponds to the **Fuzzing Input Generation** stage. Once resource extraction is complete, you will run the tools in the `Input-Generation` directory. These tools use the intermediate files from the previous step to produce the final fuzzing inputs:
 1.  **Syscall Specifications**: Generates `Syzlang` files that describe network-related syscalls and their complex data structure arguments.
 2.  **Packet Models**: Creates grammar-based models of protocol packets, which serve as the foundation for packet injection.
 
