@@ -1,0 +1,117 @@
+netlink: 24 bytes leftover after parsing attributes in process `syz.9.533'.
+netlink: 'syz.9.533': attribute type 15 has an invalid length.
+netlink: 24 bytes leftover after parsing attributes in process `syz.9.533'.
+hrtimer: interrupt took 20650 ns
+rcu: INFO: rcu_sched self-detected stall on CPU
+rcu: 	0-....: (20993 ticks this GP) idle=482/1/0x4000000000000000 softirq=15951/15953 fqs=4773 
+	(t=21004 jiffies g=16329 q=71313)
+NMI backtrace for cpu 0
+CPU: 0 PID: 9765 Comm: syz.6.519 Not tainted 5.10.134+ #1
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <IRQ>
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0xfe/0x130 lib/dump_stack.c:118
+ nmi_cpu_backtrace+0x149/0x1d0 lib/nmi_backtrace.c:105
+ nmi_trigger_cpumask_backtrace+0x1e6/0x240 lib/nmi_backtrace.c:62
+ arch_trigger_cpumask_backtrace+0x10/0x20 arch/x86/kernel/apic/hw_nmi.c:39
+ trigger_single_cpu_backtrace include/linux/nmi.h:174 [inline]
+ rcu_dump_cpu_stacks+0x1b6/0x2b0 kernel/rcu/tree_stall.h:340
+ print_cpu_stall kernel/rcu/tree_stall.h:590 [inline]
+ check_cpu_stall kernel/rcu/tree_stall.h:673 [inline]
+ rcu_pending kernel/rcu/tree.c:3782 [inline]
+ rcu_sched_clock_irq+0xf8f/0x1870 kernel/rcu/tree.c:2590
+ update_process_times+0x139/0x1b0 kernel/time/timer.c:1712
+ tick_sched_handle+0x141/0x180 kernel/time/tick-sched.c:222
+ tick_sched_timer+0xe1/0x110 kernel/time/tick-sched.c:1384
+ __run_hrtimer kernel/time/hrtimer.c:1584 [inline]
+ __hrtimer_run_queues+0x409/0x860 kernel/time/hrtimer.c:1648
+ hrtimer_interrupt+0x30c/0xa10 kernel/time/hrtimer.c:1710
+ local_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1089 [inline]
+ __sysvec_apic_timer_interrupt+0xc8/0x2c0 arch/x86/kernel/apic/apic.c:1106
+ run_sysvec_on_irqstack_cond arch/x86/include/asm/irq_stack.h:91 [inline]
+ sysvec_apic_timer_interrupt+0x27/0x70 arch/x86/kernel/apic/apic.c:1100
+ asm_sysvec_apic_timer_interrupt+0x12/0x20 arch/x86/include/asm/idtentry.h:639
+RIP: 0010:page_expected_state mm/page_alloc.c:1247 [inline]
+RIP: 0010:check_free_page mm/page_alloc.c:1292 [inline]
+RIP: 0010:free_pages_prepare mm/page_alloc.c:1422 [inline]
+RIP: 0010:free_pcp_prepare+0x226/0x4e0 mm/page_alloc.c:1518
+Code: e7 e8 ae 3b 07 00 4c 89 e0 48 c1 e8 03 42 0f b6 0c 30 4c 89 e0 83 e0 07 83 c0 03 38 c8 7c 08 84 c9 0f 85 f7 01 00 00 8b 43 30 <83> f8 ff 0f 85 43 01 00 00 48 8d 7b 18 48 89 f8 48 c1 e8 03 42 80
+RSP: 0018:ffff88811b209108 EFLAGS: 00000246
+RAX: 00000000ffffffff RBX: ffffea00043c3c40 RCX: 0000000000000000
+RDX: 0000000000000001 RSI: 0000000000000004 RDI: ffffea00043c3c70
+RBP: 0000000000000003 R08: 0000000000000000 R09: ffffea00043c3c73
+R10: fffff9400087878e R11: ffff888109543862 R12: ffffea00043c3c70
+R13: ffffea0000000000 R14: dffffc0000000000 R15: ffffea00043c3c00
+ free_unref_page_prepare mm/page_alloc.c:3492 [inline]
+ free_unref_page+0x43/0x210 mm/page_alloc.c:3531
+ destroy_compound_page include/linux/mm.h:953 [inline]
+ __put_compound_page mm/swap.c:110 [inline]
+ __put_page+0xfb/0x160 mm/swap.c:126
+ put_page include/linux/mm.h:1251 [inline]
+ __skb_frag_unref include/linux/skbuff.h:3073 [inline]
+ skb_release_data+0x2ac/0x8c0 net/core/skbuff.c:618
+ skb_release_all net/core/skbuff.c:678 [inline]
+ __kfree_skb+0x46/0x60 net/core/skbuff.c:692
+ sk_wmem_free_skb include/net/sock.h:1579 [inline]
+ tcp_rtx_queue_unlink_and_free include/net/tcp.h:1889 [inline]
+ tcp_clean_rtx_queue net/ipv4/tcp_input.c:3305 [inline]
+ tcp_ack+0x193f/0x54c0 net/ipv4/tcp_input.c:3858
+ tcp_rcv_established+0xdd0/0x1b30 net/ipv4/tcp_input.c:5856
+ tcp_v4_do_rcv+0x5e4/0x880 net/ipv4/tcp_ipv4.c:1685
+ tcp_v4_rcv+0x2b97/0x35d0 net/ipv4/tcp_ipv4.c:2070
+ ip_protocol_deliver_rcu+0x6f/0x700 net/ipv4/ip_input.c:204
+ ip_local_deliver_finish+0x1be/0x230 net/ipv4/ip_input.c:231
+ NF_HOOK include/linux/netfilter.h:304 [inline]
+ NF_HOOK include/linux/netfilter.h:298 [inline]
+ ip_local_deliver+0x2c6/0x320 net/ipv4/ip_input.c:252
+ dst_input include/net/dst.h:459 [inline]
+ ip_sublist_rcv_finish+0xff/0x190 net/ipv4/ip_input.c:550
+ ip_list_rcv_finish net/ipv4/ip_input.c:600 [inline]
+ ip_sublist_rcv+0x394/0x590 net/ipv4/ip_input.c:608
+ ip_list_rcv+0x2ab/0x3a0 net/ipv4/ip_input.c:643
+ __netif_receive_skb_list_ptype net/core/dev.c:5433 [inline]
+ __netif_receive_skb_list_core+0x67b/0x860 net/core/dev.c:5481
+ __netif_receive_skb_list net/core/dev.c:5533 [inline]
+ netif_receive_skb_list_internal+0x68d/0xb70 net/core/dev.c:5643
+ gro_normal_list net/core/dev.c:5797 [inline]
+ gro_normal_list net/core/dev.c:5793 [inline]
+ napi_complete_done+0x1ee/0x750 net/core/dev.c:6546
+ e1000_clean+0x9bf/0x2450 drivers/net/ethernet/intel/e1000/e1000_main.c:3811
+ napi_poll net/core/dev.c:6875 [inline]
+ net_rx_action+0x3d1/0xe20 net/core/dev.c:6945
+ __do_softirq+0x183/0x573 kernel/softirq.c:282
+ asm_call_irq_on_stack+0x12/0x20
+ </IRQ>
+ __run_on_irqstack arch/x86/include/asm/irq_stack.h:26 [inline]
+ run_on_irqstack_cond arch/x86/include/asm/irq_stack.h:77 [inline]
+ do_softirq_own_stack+0x2d/0x40 arch/x86/kernel/irq_64.c:77
+ invoke_softirq kernel/softirq.c:374 [inline]
+ __irq_exit_rcu kernel/softirq.c:404 [inline]
+ irq_exit_rcu+0xbf/0x130 kernel/softirq.c:416
+ sysvec_apic_timer_interrupt+0x2c/0x70 arch/x86/kernel/apic/apic.c:1100
+ asm_sysvec_apic_timer_interrupt+0x12/0x20 arch/x86/include/asm/idtentry.h:639
+RIP: 0010:exit_to_user_mode_loop kernel/entry/common.c:160 [inline]
+RIP: 0010:exit_to_user_mode_prepare+0x71/0x120 kernel/entry/common.c:200
+Code: af 02 49 89 fc eb 1f f6 c7 10 75 2a f7 c3 04 00 08 00 75 32 83 e3 02 75 4c fa 48 8b 5d 00 f7 c3 0e 30 08 00 74 ac fb f6 c3 08 <74> db e8 c8 e8 8a 02 f6 c7 10 74 d6 4c 89 e7 e8 9b dd 20 00 f7 c3
+RSP: 0018:ffff8881099fff20 EFLAGS: 00000246
+RAX: ffff88800b718000 RBX: 0000000000000002 RCX: ffffc9000259a000
+RDX: 0000000000080000 RSI: ffffffff814fd432 RDI: ffff8881099fff58
+RBP: ffff88800b718000 R08: 0000000000000001 R09: ffff88800b718c57
+R10: 0000000000000000 R11: ffffffff85b84003 R12: ffff8881099fff58
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ syscall_exit_to_user_mode+0x22/0x150 kernel/entry/common.c:275
+ entry_SYSCALL_64_after_hwframe+0x62/0xc7
+RIP: 0033:0x7f869538dc29
+Code: ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f8693998038 EFLAGS: 00000246 ORIG_RAX: 000000000000012a
+RAX: 0000000000000005 RBX: 00007f8695676fa0 RCX: 00007f869538dc29
+RDX: ffffffffffffffff RSI: 0000000000000000 RDI: 000020000001d000
+RBP: 00007f869545ca18 R08: 0000000000000000 R09: 0000000000000000
+R10: ffffffffffffffff R11: 0000000000000246 R12: 0000000000000000
+R13: 0000000000000000 R14: 00007f8695676fa0 R15: 00007ffefc5f7008
+rcu: INFO: rcu_sched detected expedited stalls on CPUs/tasks: { 0-... } 21324 jiffies s: 1725 root: 0x1/.
+rcu: blocking rcu_node structures:
+Task dump for CPU 0:
+task:syz.6.519       state:R  running task     stack:26928 pid: 9765 ppid:   289 flags:0x0000000e
+Call Trace:

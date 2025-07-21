@@ -1,0 +1,76 @@
+EXT4-fs error (device loop5): ext4_ext_check_inode:500: inode #13: comm syz-executor: pblk 0 bad header/extent: invalid eh_entries - magic f30a, entries 963, max 4(4), depth 0(0)
+netlink: 'syz.9.267': attribute type 4 has an invalid length.
+SELinux: unrecognized netlink message: protocol=0 nlmsg_type=27 sclass=netlink_route_socket pid=8518 comm=syz.9.267
+BUG: unable to handle page fault for address: fffffffffffffff0
+#PF: supervisor read access in kernel mode
+#PF: error_code(0x0000) - not-present page
+PGD 4a13067 P4D 4a13067 PUD 4a15067 PMD 0 
+Oops: 0000 [#1] SMP KASAN NOPTI
+CPU: 1 PID: 8292 Comm: syz-executor Not tainted 5.10.134+ #1
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:__netlink_deliver_tap+0x169/0x7f0 net/netlink/af_netlink.c:315
+Code: 03 80 3c 18 00 0f 85 ba 05 00 00 4d 8b 74 24 18 e8 cc df 0e fe 4c 89 e8 48 c1 e8 03 80 3c 18 00 0f 85 7e 05 00 00 49 8d 7e 30 <49> 8b 6d 00 48 89 f8 48 c1 e8 03 80 3c 18 00 0f 85 5b 05 00 00 48
+RSP: 0018:ffff888009457ad0 EFLAGS: 00010246
+RAX: 1ffffffffffffffe RBX: dffffc0000000000 RCX: ffff888109e6cd80
+RDX: ffff888115b4a800 RSI: ffffffff833169f4 RDI: ffff888103764030
+RBP: 0000000000000020 R08: 0000000000000001 R09: ffff8881037640eb
+R10: 0000000000000010 R11: 1ffff1100128aee4 R12: ffff88810a955900
+R13: fffffffffffffff0 R14: ffff888103764000 R15: ffff88810376439c
+FS:  0000555556879500(0000) GS:ffff88811b280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: fffffffffffffff0 CR3: 00000000079b6000 CR4: 0000000000350ee0
+Call Trace:
+ netlink_deliver_tap net/netlink/af_netlink.c:328 [inline]
+ netlink_deliver_tap_kernel net/netlink/af_netlink.c:337 [inline]
+ netlink_unicast_kernel net/netlink/af_netlink.c:1297 [inline]
+ netlink_unicast+0x7d8/0x8e0 net/netlink/af_netlink.c:1324
+ netlink_sendmsg+0x8e7/0xdc0 net/netlink/af_netlink.c:1891
+ sock_sendmsg_nosec net/socket.c:651 [inline]
+ __sock_sendmsg+0x14b/0x180 net/socket.c:663
+ __sys_sendto+0x1dd/0x2c0 net/socket.c:2050
+ __do_sys_sendto net/socket.c:2062 [inline]
+ __se_sys_sendto net/socket.c:2058 [inline]
+ __x64_sys_sendto+0xdc/0x1b0 net/socket.c:2058
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x31/0x50 arch/x86/entry/common.c:79
+ entry_SYSCALL_64_after_hwframe+0x62/0xc7
+RIP: 0033:0x7f255f9d7bc3
+Code: c7 c2 a8 ff ff ff f7 d8 64 89 02 48 c7 c0 ff ff ff ff eb b8 0f 1f 00 80 3d 81 c9 2b 00 00 41 89 ca 74 14 b8 2c 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 75 c3 0f 1f 40 00 55 48 83 ec 30 44 89 4c 24
+RSP: 002b:00007ffd5b3a69d8 EFLAGS: 00000202 ORIG_RAX: 000000000000002c
+RAX: ffffffffffffffda RBX: 00007f25607ed620 RCX: 00007f255f9d7bc3
+RDX: 0000000000000020 RSI: 00007f25607ed670 RDI: 0000000000000003
+RBP: 0000000000000001 R08: 00007ffd5b3a69f4 R09: 000000000000000c
+R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000003
+R13: 0000000000000000 R14: 00007f25607ed670 R15: 0000000000000000
+Modules linked in:
+CR2: fffffffffffffff0
+---[ end trace d8ffde3fcceb29f1 ]---
+RIP: 0010:__netlink_deliver_tap+0x169/0x7f0 net/netlink/af_netlink.c:315
+Code: 03 80 3c 18 00 0f 85 ba 05 00 00 4d 8b 74 24 18 e8 cc df 0e fe 4c 89 e8 48 c1 e8 03 80 3c 18 00 0f 85 7e 05 00 00 49 8d 7e 30 <49> 8b 6d 00 48 89 f8 48 c1 e8 03 80 3c 18 00 0f 85 5b 05 00 00 48
+RSP: 0018:ffff888009457ad0 EFLAGS: 00010246
+RAX: 1ffffffffffffffe RBX: dffffc0000000000 RCX: ffff888109e6cd80
+RDX: ffff888115b4a800 RSI: ffffffff833169f4 RDI: ffff888103764030
+RBP: 0000000000000020 R08: 0000000000000001 R09: ffff8881037640eb
+R10: 0000000000000010 R11: 1ffff1100128aee4 R12: ffff88810a955900
+R13: fffffffffffffff0 R14: ffff888103764000 R15: ffff88810376439c
+FS:  0000555556879500(0000) GS:ffff88811b280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: fffffffffffffff0 CR3: 00000000079b6000 CR4: 0000000000350ee0
+EXT4-fs warning (device loop7): kmmpd:169: kmmpd being stopped since MMP feature has been disabled.
+----------------
+Code disassembly (best guess):
+   0:	03 80 3c 18 00 0f    	add    0xf00183c(%rax),%eax
+   6:	85 ba 05 00 00 4d    	test   %edi,0x4d000005(%rdx)
+   c:	8b 74 24 18          	mov    0x18(%rsp),%esi
+  10:	e8 cc df 0e fe       	call   0xfe0edfe1
+  15:	4c 89 e8             	mov    %r13,%rax
+  18:	48 c1 e8 03          	shr    $0x3,%rax
+  1c:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
+  20:	0f 85 7e 05 00 00    	jne    0x5a4
+  26:	49 8d 7e 30          	lea    0x30(%r14),%rdi
+* 2a:	49 8b 6d 00          	mov    0x0(%r13),%rbp <-- trapping instruction
+  2e:	48 89 f8             	mov    %rdi,%rax
+  31:	48 c1 e8 03          	shr    $0x3,%rax
+  35:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
+  39:	0f 85 5b 05 00 00    	jne    0x59a
+  3f:	48                   	rex.W

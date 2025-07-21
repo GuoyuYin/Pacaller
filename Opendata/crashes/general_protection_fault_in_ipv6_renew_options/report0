@@ -1,0 +1,143 @@
+TCP: request_sock_TCPv6: Possible SYN flooding on port [::]:20002. Sending cookies.
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000006: 0000 [#1] PREEMPT SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
+CPU: 1 PID: 113370 Comm: syz-executor.1 Tainted: G     U             6.10.0 #1
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:read_pnet include/net/net_namespace.h:383 [inline]
+RIP: 0010:sock_net include/net/sock.h:648 [inline]
+RIP: 0010:sock_kmalloc+0x30/0x170 net/core/sock.c:2686
+Code: 41 56 41 55 41 89 d5 41 54 55 89 f5 53 48 89 fb e8 85 ab e9 fd 48 8d 7b 30 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 26 01 00 00 48 b8 00 00 00 00 00 fc ff df 4c 8b
+RSP: 0018:ffff88806d309190 EFLAGS: 00010216
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffff88800bf6cc00
+RDX: 0000000000000006 RSI: ffffffff835f29ab RDI: 0000000000000030
+RBP: 0000000000000050 R08: 0000000000000007 R09: fffffffffffff000
+R10: ffff88800bf6cc00 R11: ffffffff817ab8c4 R12: 0000000000000000
+R13: 0000000000000820 R14: ffff88800bf6cc00 R15: ffff88800bf6cc01
+FS:  00007f38654d26c0(0000) GS:ffff88806d300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000000002031e000 CR3: 000000001123a000 CR4: 0000000000350ef0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000600
+Call Trace:
+ <IRQ>
+ ipv6_renew_options+0x21d/0x1090 net/ipv6/exthdrs.c:1288
+ calipso_req_setattr+0x135/0x2e0 net/ipv6/calipso.c:1204
+ calipso_req_setattr+0x56/0x80 net/netlabel/netlabel_calipso.c:597
+ netlbl_req_setattr+0x14b/0x400 net/netlabel/netlabel_kapi.c:1249
+ selinux_netlbl_inet_conn_request+0x1fb/0x330 security/selinux/netlabel.c:340
+ selinux_inet_conn_request+0x1d0/0x2a0 security/selinux/hooks.c:5529
+ security_inet_conn_request+0x5a/0xb0 security/security.c:4744
+ tcp_v6_route_req+0x22c/0x550 net/ipv6/tcp_ipv6.c:829
+ tcp_conn_request+0xa96/0x2ec0 net/ipv4/tcp_input.c:7215
+ tcp_v6_conn_request net/ipv6/tcp_ipv6.c:1328 [inline]
+ tcp_v6_conn_request+0x232/0x340 net/ipv6/tcp_ipv6.c:1315
+ tcp_rcv_state_process+0x1253/0x4760 net/ipv4/tcp_input.c:6696
+ tcp_v6_do_rcv+0x803/0x1670 net/ipv6/tcp_ipv6.c:1669
+ tcp_v6_rcv+0x36ae/0x3f70 net/ipv6/tcp_ipv6.c:1906
+ ip6_protocol_deliver_rcu+0x160/0x1800 net/ipv6/ip6_input.c:438
+ ip6_input_finish+0x10a/0x190 net/ipv6/ip6_input.c:483
+ NF_HOOK include/linux/netfilter.h:314 [inline]
+ NF_HOOK include/linux/netfilter.h:308 [inline]
+ ip6_input+0xc9/0x1f0 net/ipv6/ip6_input.c:492
+ dst_input include/net/dst.h:460 [inline]
+ ip6_rcv_finish net/ipv6/ip6_input.c:79 [inline]
+ ip6_rcv_finish net/ipv6/ip6_input.c:69 [inline]
+ NF_HOOK include/linux/netfilter.h:314 [inline]
+ NF_HOOK include/linux/netfilter.h:308 [inline]
+ ipv6_rcv+0x246/0x2c0 net/ipv6/ip6_input.c:310
+ __netif_receive_skb_one_core+0x12e/0x1f0 net/core/dev.c:5625
+ __netif_receive_skb+0x1d/0x170 net/core/dev.c:5739
+ process_backlog+0x1a9/0x560 net/core/dev.c:6068
+ __napi_poll+0xb9/0x640 net/core/dev.c:6722
+ napi_poll net/core/dev.c:6791 [inline]
+ net_rx_action+0x8ff/0xcb0 net/core/dev.c:6907
+ handle_softirqs+0x185/0x560 kernel/softirq.c:554
+ do_softirq kernel/softirq.c:455 [inline]
+ do_softirq+0x3e/0x60 kernel/softirq.c:442
+ </IRQ>
+ <TASK>
+ __local_bh_enable_ip+0x5b/0x70 kernel/softirq.c:382
+ local_bh_enable include/linux/bottom_half.h:33 [inline]
+ rcu_read_unlock_bh include/linux/rcupdate.h:851 [inline]
+ __dev_queue_xmit+0xc6b/0x3240 net/core/dev.c:4420
+ dev_queue_xmit include/linux/netdevice.h:3095 [inline]
+ neigh_resolve_output net/core/neighbour.c:1565 [inline]
+ neigh_resolve_output+0x497/0x760 net/core/neighbour.c:1545
+ neigh_output include/net/neighbour.h:542 [inline]
+ ip6_finish_output2+0x9ae/0x1900 net/ipv6/ip6_output.c:137
+ __ip6_finish_output+0x4bb/0x800 net/ipv6/ip6_output.c:211
+ ip6_finish_output net/ipv6/ip6_output.c:222 [inline]
+ NF_HOOK_COND include/linux/netfilter.h:303 [inline]
+ ip6_output+0x206/0x400 net/ipv6/ip6_output.c:243
+ dst_output include/net/dst.h:450 [inline]
+ NF_HOOK include/linux/netfilter.h:314 [inline]
+ NF_HOOK include/linux/netfilter.h:308 [inline]
+ ip6_xmit+0xeba/0x1820 net/ipv6/ip6_output.c:358
+ inet6_csk_xmit+0x2f6/0x480 net/ipv6/inet6_connection_sock.c:135
+ __tcp_transmit_skb+0x1982/0x3970 net/ipv4/tcp_output.c:1466
+ tcp_transmit_skb net/ipv4/tcp_output.c:1484 [inline]
+ tcp_send_syn_data net/ipv4/tcp_output.c:4054 [inline]
+ tcp_connect+0x207d/0x4150 net/ipv4/tcp_output.c:4140
+ tcp_v6_connect+0x1490/0x1b70 net/ipv6/tcp_ipv6.c:333
+ __inet_stream_connect+0x3a7/0xed0 net/ipv4/af_inet.c:679
+ tcp_sendmsg_fastopen+0x3d8/0x6c0 net/ipv4/tcp.c:1032
+ tcp_sendmsg_locked+0x21fa/0x3180 net/ipv4/tcp.c:1084
+ tcp_sendmsg+0x2f/0x50 net/ipv4/tcp.c:1351
+ inet6_sendmsg+0xb9/0x150 net/ipv6/af_inet6.c:661
+ sock_sendmsg_nosec net/socket.c:730 [inline]
+ __sock_sendmsg net/socket.c:745 [inline]
+ __sys_sendto+0x38e/0x500 net/socket.c:2192
+ __do_sys_sendto net/socket.c:2204 [inline]
+ __se_sys_sendto net/socket.c:2200 [inline]
+ __x64_sys_sendto+0xe1/0x1c0 net/socket.c:2200
+ do_syscall_x64 arch/x86/entry/common.c:52 [inline]
+ do_syscall_64+0xa6/0x1a0 arch/x86/entry/common.c:83
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f38661bc1a9
+Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 e1 20 00 00 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f38654d20c8 EFLAGS: 00000246 ORIG_RAX: 000000000000002c
+RAX: ffffffffffffffda RBX: 00007f386638cf80 RCX: 00007f38661bc1a9
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000005
+RBP: 00007f38662668fe R08: 000000002031e000 R09: 000000000000001c
+R10: 0000000020000004 R11: 0000000000000246 R12: 0000000000000000
+R13: 0000000000000002 R14: 00007f386638cf80 R15: 00007ffc7a7d3cb8
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:read_pnet include/net/net_namespace.h:383 [inline]
+RIP: 0010:sock_net include/net/sock.h:648 [inline]
+RIP: 0010:sock_kmalloc+0x30/0x170 net/core/sock.c:2686
+Code: 41 56 41 55 41 89 d5 41 54 55 89 f5 53 48 89 fb e8 85 ab e9 fd 48 8d 7b 30 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 26 01 00 00 48 b8 00 00 00 00 00 fc ff df 4c 8b
+RSP: 0018:ffff88806d309190 EFLAGS: 00010216
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffff88800bf6cc00
+RDX: 0000000000000006 RSI: ffffffff835f29ab RDI: 0000000000000030
+RBP: 0000000000000050 R08: 0000000000000007 R09: fffffffffffff000
+R10: ffff88800bf6cc00 R11: ffffffff817ab8c4 R12: 0000000000000000
+R13: 0000000000000820 R14: ffff88800bf6cc00 R15: ffff88800bf6cc01
+FS:  00007f38654d26c0(0000) GS:ffff88806d300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000000002031e000 CR3: 000000001123a000 CR4: 0000000000350ef0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000600
+----------------
+Code disassembly (best guess):
+   0:	41 56                	push   %r14
+   2:	41 55                	push   %r13
+   4:	41 89 d5             	mov    %edx,%r13d
+   7:	41 54                	push   %r12
+   9:	55                   	push   %rbp
+   a:	89 f5                	mov    %esi,%ebp
+   c:	53                   	push   %rbx
+   d:	48 89 fb             	mov    %rdi,%rbx
+  10:	e8 85 ab e9 fd       	call   0xfde9ab9a
+  15:	48 8d 7b 30          	lea    0x30(%rbx),%rdi
+  19:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  20:	fc ff df
+  23:	48 89 fa             	mov    %rdi,%rdx
+  26:	48 c1 ea 03          	shr    $0x3,%rdx
+* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
+  2e:	0f 85 26 01 00 00    	jne    0x15a
+  34:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  3b:	fc ff df
+  3e:	4c                   	rex.WR
+  3f:	8b                   	.byte 0x8b

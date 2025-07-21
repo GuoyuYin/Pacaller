@@ -1,0 +1,329 @@
+Warning: Permanently added '[localhost]:38606' (ED25519) to the list of known hosts.
+2025/03/10 09:02:02 fuzzer started
+2025/03/10 09:02:03 dialing manager at localhost:40957
+syzkaller login: [   35.556590] cgroup: Unknown subsys name 'net'
+[   35.557408] Adding 124996k swap on ./swap-file.  Priority:0 extents:1 across:124996k 
+[   35.599431] cgroup: Unknown subsys name 'rlimit'
+[   35.600358] cgroup: Unknown subsys name 'memory'
+2025/03/10 09:02:03 starting 2 executor processes
+[   35.764261] audit: type=1400 audit(1741597323.417:8): avc:  denied  { execmem } for  pid=256 comm="syz-executor.0" scontext=system_u:system_r:kernel_t:s0 tcontext=system_u:system_r:kernel_t:s0 tclass=process permissive=1
+executing program 1:
+clock_getres(0x0, 0x0)
+r0 = semget(0x3, 0x4, 0x495)
+r1 = socket$nl_xfrm(0x10, 0x3, 0x6)
+setsockopt$sock_linger(r1, 0x1, 0xd, &(0x7f0000000000), 0x8)
+clock_gettime(0x0, &(0x7f0000000040)={<r2=>0x0, <r3=>0x0})
+syz_sysconfig_set__proc_sys_net_ipv4_tcp_sack(0x4)
+semtimedop(r0, &(0x7f0000000000)=[{0x0, 0x80, 0x1000}, {0x1, 0xfffb, 0x1000}, {0x2, 0x9, 0x800}, {0x4, 0x6, 0x1800}, {0x0, 0x6, 0x800}, {0x1, 0x6, 0x1000}], 0x6, &(0x7f0000000080)={r2, r3+60000000})
+syz_sysconfig_reset__proc_sys_net_ipv4_tcp_sack()
+
+executing program 0:
+r0 = add_key$user(&(0x7f0000000000), &(0x7f0000000040)={'syz', 0x1}, &(0x7f0000000080)='c', 0x1, 0xffffffffffffffff)
+r1 = socket$nl_sock_diag(0x10, 0x3, 0x4) (async)
+syz_mount_image$ext4(&(0x7f0000000240)='ext4\x00', &(0x7f0000000000)='./mnt\x00', 0x10000, &(0x7f0000000180)={[{@nobh}, {@nouid32}, {@stripe={'stripe', 0x3d, 0x8a7}}, {@errors_continue}, {@oldalloc}, {@data_journal}, {@debug_want_extra_isize={'debug_want_extra_isize', 0x3d, 0x9ca1}}, {@errors_remount}, {@nodelalloc}]}, 0x1, 0x236, &(0x7f0000000300)="$eJzs3TFoM2UcBvDnLomf/b4gVRdBUEFEtFDqJrjURaEgpYgIKlREXJRWqC1urZOLg84qnVyKuFkdpUtxUQSnqh3qImhxsDjoELlcK9VGFFNz8t3vB5fcJe97//e4e95kOS5Aa00nmU/SSTKTpJekON/grnqZPt3cntpfTgaDx38shu3q7dpZv2tJtpI8mGSvLPJiN9nYffro54NH731jvXfPe7tPTU30IE8dHx0+dvLu4usfLjyw8fmX3y8WmU//D8d1+YoRn3WL5Jb/otj/RNFtegT8E0uvfvBVlftbk9w9zH8vZeqT9+baDXu93P/OX/V964cvbp/kWIHLNxj0qt/ArQHQOmWSfopyNkm9Xpazs/V/+K87V8uXVtdemXlhdX3l+aZnKuCy9JPDRz6+8tG1P+X/u06df+D6VeX/iaWdb6r1k07TowEmqcr/zLOb90X+oXXkH9pL/qG95B/aS/6hveQf2kv+ob3kH9pL/qG95B/a63z+AYB2GVxp+g5koClNzz8AAAAAAAAAAAAAAAAAAMBF21P7y2fLpGp++nZy/HCS7qj6neHziJMbh69XfyqqZr8r6m5jeebOMXcwpvcbvvv6pm+brf/ZHc3W31xJtl5LMtftXrz+itPr79+7+W++7z03ZoExPfRks/V/3Wm2/sJB8kk1/8yNmn/K3DZ8Hz3/9KvzN2b9l38ZcwcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABMzG8BAAD//8n0bSk=") (async)
+ioctl$SECCOMP_IOCTL_NOTIF_RECV(0xffffffffffffffff, 0xc0502100, &(0x7f00000000c0)={0x0, <r2=>0x0})
+ptrace(0x11, r2) (async)
+getsockopt$sock_cred(r1, 0x1, 0x11, &(0x7f0000000040)={0x0, <r3=>0x0}, &(0x7f0000000080)=0xc)
+keyctl$chown(0x4, r0, r3, 0x0) (async)
+syz_sysconfig_set__proc_sys_fs_pipe_user_pages_soft(0xfffffffa)
+syz_sysconfig_reset__proc_sys_fs_pipe_user_pages_soft()
+
+[   41.524977] loop0: detected capacity change from 0 to 128
+[   41.527290] EXT4-fs: Ignoring removed nobh option
+[   41.527914] EXT4-fs: Ignoring removed oldalloc option
+[   41.528588] EXT4-fs: Invalid want_extra_isize 40097
+executing program 1:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000000)='./file0\x00', 0x145042, 0x0)
+fallocate(r0, 0x11, 0x0, 0x0)
+write$cgroup_pid(r0, 0x0, 0x0)
+syz_read_part_table(0x5d6, &(0x7f0000000600)="$eJzs3LFrU2sYB+AvQSIKIm5uBjNEXFLIGCJoiIcSMCF40UFEtwo3i04OMYIBcTAuEcGlDopQg3LRSUQQREwcCplKS3uXtpQOl0KXQCm5FE7/gN5LCsLzwBm+9/ud856XwxnPCfzWkuGf8XicCCGMjx787D/mypen07WL9ashJMKNEMLUX4WZvZ1EnNi/6tl4vRKv81+ONJ7ORY873ROnP6V3fiXj/YchhD9DCOuDlzf/93BM3Ll757+dGQ1Pfa6EV/0L/cLxxvWZXrbU6s3XPl56k367/9xzE+r/ofjj5KP23ahzv3hnIWquRhvJ7a3oyovZXOpZq57dnIpztybUv7F7LfXu9fdSe+1Y/melWu2+X3qeaZa/th8MB5nF0ZPbcW75P7xdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcvnP3zn87Mxqe+lwJr/oX+oXjjeszvWyp1Zuvfbz0Jv32bJzLTaj/h+KPk4/ad6PO/eKdhai5Gm0kt7eiKy9mc6lnrXp2cyrO3ZpQ/8butdS7199L7bVj+Z+VarX7ful5pln+2n4wHGQWR09ux7nloxO6AQAAAAAAAAAAAAAAAAAAAAghlC9Pp2sX61dDSIQbIYTC7PTSXn0cf++eiHP7/wFYiev5L0caT+eix53uidOf0ju//o7rD+NjffDy5qEPw4H9GwAA//9fn4oc")
+
+executing program 0:
+r0 = socket$igmp(0x2, 0x3, 0x2)
+setsockopt$MRT_INIT(r0, 0x0, 0xc8, &(0x7f0000000140), 0x4)
+setsockopt$MRT_DEL_MFC(r0, 0x0, 0x5, 0x0, 0x0)
+syz_mount_image$ext4(&(0x7f0000000240)='ext4\x00', &(0x7f0000000280)='./mnt\x00', 0x0, &(0x7f00000002c0), 0x0, 0x246, &(0x7f0000000a40)="$eJzs3TFoJFUcBvBvZnfvzN0ipzaCoIKIaCCcnWBzNgoHcgQRQYWIiI2SCDHBLrGysdBaJZVNEDujpaQJNopgFTVFbAQNFgYLLVZmJ5FoVgzuZkec3w8mmdl9s/83zHzvTTNMgNa6kuRakk6S2SS9JMXJBnfXy5WjzY2ZnYVkMHjip2LYrt6uHe93Ocl6koeSbJdFXuomq1vP7P+y+9h9b6707n1/6+mZqR7kkYP9vccP37vxxkfXH1z94qsfbhS5lv6fjmvyihGfdYvk1vMo9h9RdJvuAWcx/9qHX1e5vy3JPcP891KmPnlvLV/Y7uWBd/9u37d//PKOafYVmLzBoFfNgesDoHXKJP0U5VySer0s5+bqe/hvOpfKl5eWX519cWll8YWmRypgUvrJ3qOfXPz48l/y/32nzv8JdzXWSeBcVPl/cn7z22r9sNN0b4BpqvI/+9za/ZF/aB35h/+jC2dqJf/QXvIP7SX/0F4Tyf/aZPsETIf5H9rrZP6BdjH/Q3vJP7SX+38AaK/BxaafQAaa0vT4AwAAAAAAAAAAAAAAAAAAnLYxs7NwvEyr5mfvJAePJOmOqt8Zvo84uWn499LPRdXsD0W921iebfjNxh80/PT1zd81W//zO5utv7aYrL+e5Gq3e/r6K46uv3/vln/4vvf8mAXG9PBTzdb/bbPZ+td3k0+r8efqqPGnzO3D/6PHn351/sas/8qvY/4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU/N7AAAA//+dH2zW")
+syz_sysconfig_reset__proc_sys_net_ipv6_conf_sit0_force_tllao()
+syz_sysconfig_set__proc_sys_net_ipv6_conf_lo_drop_unicast_in_l2_multicast(0x5)
+syz_sysconfig_reset__proc_sys_net_ipv6_conf_lo_drop_unicast_in_l2_multicast()
+
+[   41.568363] loop1: detected capacity change from 0 to 2048
+[   41.570854] loop0: detected capacity change from 0 to 128
+[   41.577860] EXT4-fs (loop0): mounted filesystem 76b65be2-f6da-4727-8c75-0525a5b65a09 r/w without journal. Quota mode: none.
+executing program 1:
+r0 = socket$inet_icmp_raw(0x2, 0x3, 0x1)
+fsetxattr$system_posix_acl(r0, &(0x7f0000000080)='system.posix_acl_default\x00', &(0x7f0000000240)=ANY=[], 0x44, 0x0)
+semctl$IPC_RMID(0x0, 0x0, 0x4)
+syz_sysconfig_set__proc_sys_net_ipv4_tcp_no_ssthresh_metrics_save(0x7) (async)
+syz_sysconfig_reset__proc_sys_net_ipv4_tcp_no_ssthresh_metrics_save()
+
+[   41.581958] ext4 filesystem being mounted at /syzkaller-testdir3934995322/syzkaller.Csmjql/1/mnt supports timestamps until 2038-01-19 (0x7fffffff)
+executing program 0:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000080)='./file1\x00', 0x105042, 0x0)
+write$cgroup_pid(r0, 0x0, 0xa12)
+
+executing program 1:
+syz_mount_image$ext4(&(0x7f0000000000)='ext4\x00', &(0x7f0000000080)='./mnt\x00', 0x410, &(0x7f0000000040)={[{@grpid}, {@data_writeback}, {@nombcache}, {@noauto_da_alloc}]}, 0x1, 0x236, &(0x7f0000000300)="$eJzs3TFoM2UcBvDnLomf/b4gVRdBUEFEtFDqJrjURaEgpYgIKlREXJRWqC1urZOLg84qnVyKuFkdpUtxUQSnqh3qImhxsDjoELlcK9VGFFNz8t3vB5fcJe97//e4e95kOS5Aa00nmU/SSTKTpJekON/grnqZPt3cntpfTgaDx38shu3q7dpZv2tJtpI8mGSvLPJiN9nYffro54NH731jvXfPe7tPTU30IE8dHx0+dvLu4usfLjyw8fmX3y8WmU//D8d1+YoRn3WL5Jb/otj/RNFtegT8E0uvfvBVlftbk9w9zH8vZeqT9+baDXu93P/OX/V964cvbp/kWIHLNxj0qt/ArQHQOmWSfopyNkm9Xpazs/V/+K87V8uXVtdemXlhdX3l+aZnKuCy9JPDRz6+8tG1P+X/u06df+D6VeX/iaWdb6r1k07TowEmqcr/zLOb90X+oXXkH9pL/qG95B/aS/6hveQf2kv+ob3kH9pL/qG95B/a63z+AYB2GVxp+g5koClNzz8AAAAAAAAAAAAAAAAAAMBF21P7y2fLpGp++nZy/HCS7qj6neHziJMbh69XfyqqZr8r6m5jeebOMXcwpvcbvvv6pm+brf/ZHc3W31xJtl5LMtftXrz+itPr79+7+W++7z03ZoExPfRks/V/3Wm2/sJB8kk1/8yNmn/K3DZ8Hz3/9KvzN2b9l38ZcwcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABMzG8BAAD//8n0bSk=")
+r0 = perf_event_open$cgroup(&(0x7f0000000140)={0x0, 0x80, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, @perf_config_ext}, 0xffffffffffffffff, 0x0, 0xffffffffffffffff, 0x0)
+syz_sysconfig_set__proc_sys_fs_protected_fifos(0x100)
+ioctl$PERF_EVENT_IOC_ENABLE(r0, 0x2400, 0x99)
+r1 = socket$nl_route(0x10, 0x3, 0x0)
+sendmsg$nl_route_sched_retired(r1, &(0x7f0000006cc0)={0x0, 0x0, &(0x7f0000006c80)={&(0x7f0000000680)=@deltfilter={0x23, 0x2d, 0x1}, 0x24}}, 0x0)
+socketpair$unix(0x1, 0x5, 0x0, &(0x7f0000000040)={0xffffffffffffffff, <r2=>0xffffffffffffffff})
+bind$unix(r2, &(0x7f0000000080)=@abs={0x1}, 0x6e)
+ioctl$sock_SIOCSIFVLAN_GET_VLAN_VID_CMD(r2, 0x8983, &(0x7f00000000c0))
+syz_sysconfig_set__proc_sys_net_core_optmem_max(0x2000000)
+syz_sysconfig_reset__proc_sys_fs_protected_fifos()
+
+[   41.635040] EXT4-fs (loop0): unmounting filesystem 76b65be2-f6da-4727-8c75-0525a5b65a09.
+[   41.641462] loop1: detected capacity change from 0 to 128
+[   41.649598] EXT4-fs (loop1): can't mount with data=, fs mounted w/o journal
+executing program 0:
+syz_mount_image$ext4(&(0x7f0000000040)='ext4\x00', &(0x7f0000000440)='./file0\x00', 0x2000000, &(0x7f0000000080)={[{@discard}, {@nodelalloc}, {@errors_remount}]}, 0x1, 0x3ff, &(0x7f0000000880)="$eJzs3c1uG0UcAPD/br5oWnCAwgEqEVQhIj7y0VShEZX4EEdOlBcISVoF3IY2QaJVDiAh+gDAAyCO5RE4IG5ISFwqztxAlSqU5FwZrbNOlsR2EjvGaf37SSPNzNqa+Xt3PdPZqRNAzxqNiC8iYjAiPo6IUl6f5Cne3krZ6zbX1+azlESlcumfpHp8Y31tPgrvyZzMC2NpRPpVEs/XaXfl5q1P5srlxRt5eWL16qcTKzdvvb50de7K4pXFa9OTs7OT0xdmZmeOLNa/4vafF+++V/rmt7N//PLRBzNZf0/lx4pxtCbZUzO6t2rbeHuNHTuPFfJJfxc7wqGkEdEXEf3V+78UfbFz8krxU6mrnQMAOqJSeWtXGQB49CXGfADoMbV/92+sr83X0r6LBmln1iK64f47Ww+vNvJnm5vb8fdvPwkZ2PV86yiNRsSP373xQpbiSJ5DAgA093M2/7lQb/6XxpnC605ExHC+t+tURDweEU8U9ou1anRXee/8J73XZhNNZfO/i4W9bZuF+HMjfXkpi3kkBpLLS+XFyTz+sRgYyspTTdo4c+nZB42OFed/Wcrar80F837c6x/673sW5lbn2om56P6XEc/114s/2Z7/JtW4W/fm9TvPNDq2f/ydVfk+4uW6539n817SfH/iRPV6mKhdFXvdfuWl643a73b82fkfbh7/SFLcr7ly+DZ+Pb/0e6NjrV7/g8mH1fxgXvf53OrqjamIweT9vfXndt5bK9den8U/drb+/X86dj6JJyPiqYh4OqJa3/CCruO18g8vth5/Z2XxLxzq/B8+M/z1nbuN2j/Y+T9fzY3lNQf5/jtoB9v57AAAAOBhkVbXc5N0fDufpuPjW+u8p2M4LS+vrL56efmzawtb674jMZDWVrpKhfXQqXyNsFY+t6s8na+hfPvuiWp5fH65vNDt4AGgR51sMP5n/h7qdu8AgI5pbXO72QEAPMyy8f9Bpdu9AAD+T536z+0AwPFl/AeA3mP8B4DeY/wHgJ7Szu/6yeyTSbb+tvqBf4zwGGeG4lh0Q6Z243a8ra5+LQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdN2/AQAA//+KQ9A4")
+mknod(&(0x7f0000000000)='./mnt\x00', 0x7000000, 0x0)
+
+[   41.656591] audit: type=1400 audit(1741597329.309:9): avc:  denied  { open } for  pid=1191 comm="syz-executor.1" scontext=system_u:system_r:kernel_t:s0 tcontext=system_u:system_r:kernel_t:s0 tclass=perf_event permissive=1
+[   41.659593] audit: type=1400 audit(1741597329.309:10): avc:  denied  { kernel } for  pid=1191 comm="syz-executor.1" scontext=system_u:system_r:kernel_t:s0 tcontext=system_u:system_r:kernel_t:s0 tclass=perf_event permissive=1
+[   41.665489] loop0: detected capacity change from 0 to 512
+[   41.674538] audit: type=1400 audit(1741597329.327:11): avc:  denied  { write } for  pid=1191 comm="syz-executor.1" scontext=system_u:system_r:kernel_t:s0 tcontext=system_u:system_r:kernel_t:s0 tclass=perf_event permissive=1
+[   41.677143] EXT4-fs (loop0): mounted filesystem 00000000-0000-0000-0000-000000000000 r/w without journal. Quota mode: none.
+[   41.681030] EXT4-fs error (device loop0): ext4_find_dest_de:2111: inode #2: block 8: comm syz-executor.0: bad entry in directory: directory entry overrun - offset=108, inode=17, rec_len=17044, size=2048 fake=0
+[   41.684953] EXT4-fs (loop0): Remounting filesystem read-only
+[   41.695406] EXT4-fs (loop0): unmounting filesystem 00000000-0000-0000-0000-000000000000.
+executing program 0:
+epoll_wait(0xffffffffffffffff, 0x0, 0x0, 0xfc2b)
+syz_sysconfig_set__proc_sys_net_ipv6_xfrm6_gc_thresh(0x4)
+r0 = socket$nl_generic(0x10, 0x3, 0x10)
+r1 = syz_genetlink_get_family_id$nl80211(&(0x7f0000000080), 0xffffffffffffffff)
+sendmsg$NL80211_CMD_REQ_SET_REG(r0, &(0x7f0000000180)={0x0, 0x0, &(0x7f0000000140)={&(0x7f00000000c0)={0x1c, r1, 0x50b, 0x0, 0x0, {}, [@NL80211_ATTR_USER_REG_HINT_TYPE={0x8, 0x9a, 0x2}]}, 0x1c}}, 0x0)
+syz_mount_image$ext4(&(0x7f0000000240)='ext4\x00', &(0x7f0000000280)='./mnt\x00', 0x0, &(0x7f0000000000)={[{@nobh}, {@errors_remount}, {@bh}, {@grpjquota}, {@errors_remount}, {@nouid32}, {@lazytime}, {@noquota}, {@inode_readahead_blks={'inode_readahead_blks', 0x3d, 0x4}}]}, 0x0, 0x257, &(0x7f0000000300)="$eJzs3T9oJGUcBuB3ZnfvzN0ipzaCoIKIaCCcnWBzNgoHchwiggonIjbKnXAm2CWpbAS1VkllE8TOaClpgo0iWEVNERtBg4XBQouV3UlkNQkm2T8jzvPA7M7sfLO/b9h5v5lmdgI01oUkl5K0kswm6SQphhvcW00X9hZXZjauJb3eU78Ug3bVcmV/u/NJlpI8kmS9LPJKO1lYe277t80nHnhrvnP/h2vPzkx1J/fsbG89ufvBlTc/ufzwwlff/HSlyKV0/7Zf41cc8lm7SG6fRLH/iKJddw84jqtvfPxtP/d3JLlvkP9OylQ/3js3z6x38tD7R2377s9f3zXNvgLj1+t1+ufApR7QOGWSbopyLkk1X5Zzc9U1/Hetc+WrN26+PvvyjfnrL9U9UgHj0k22Hv/s7Kfn/5H/H1tV/ofcU1sngYno5//pq6vf9+d3W3X3Bpimfv5nX1h8MPIPjSP/8H905lit5B+aS/6hueQfmuuo/C+f5EsWx98vYPKc/6G5hvMPNIvzPzTXCfJfre1Mp1/A5Ln+B4Dm6p2t+w5koC51jz8AAAAAAAAAAAAAAAAAAMBBKzMb1/anadX84r1k57Ek7YP1y7QGzyNObhm8nvu16Df7S1FtNpLna36y8Uc133196w/11v/y7nrrL15PlpaTXGy3Dx7/xd7xd3q3/cv6zosjFhjRo8/UW/+P1XrrX95MPu+PPxcPG//K3Dl4P3z86Q79JeLG26er/9rvI3UfAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAKfozAAD//0h+brc=")
+syz_sysconfig_reset__proc_sys_net_ipv6_xfrm6_gc_thresh()
+
+executing program 1:
+clock_gettime(0x8, &(0x7f00000000c0)) (async)
+r0 = socket$inet6_tcp(0xa, 0x1, 0x0) (async)
+syz_open_dev$loop(&(0x7f0000000180), 0x0, 0x0) (async)
+r1 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0) (async)
+unshare(0x20000400) (async)
+r2 = syz_open_procfs(0xffffffffffffffff, &(0x7f0000001200)='net/anycast6\x00') (async)
+r3 = syz_open_dev$sg(&(0x7f0000000000), 0x0, 0x0)
+ioctl$SG_GET_COMMAND_Q(r3, 0x2270, &(0x7f0000000040))
+syz_sysconfig_set__proc_sys_net_ipv6_conf_sit0_addr_gen_mode(0x1) (async)
+setsockopt$inet_msfilter(r2, 0x0, 0x29, 0x0, 0x0) (async)
+r4 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+pwritev(r4, 0x0, 0x0, 0x0, 0x0)
+ioctl$EXT4_IOC_GET_ES_CACHE(r1, 0x40305839, &(0x7f0000000580)={0x0, 0x0, 0x0, 0x2}) (async)
+sendmsg$nl_route_sched_retired(0xffffffffffffffff, 0x0, 0x0) (async)
+syz_mount_image$vfat(&(0x7f00000000c0), &(0x7f0000000240)='./file0\x00', 0x0, &(0x7f00000006c0)=ANY=[], 0x1, 0x1f9, &(0x7f0000000280)="$eJzs289KVG8YB/Cvf37+plyMRKtocaBFrQb1ChrCIBoIjFnUKkmFcERQEGqR7bqXoJvpDtp3AS4Cg3MmHe0Ihdkpz+cDw3mY93zhOYszz7t458Xt7a31nb3N+Y+f05kqMpvcz2GykOnMpDI1vk6X9VwmvQsA8K9ZXV3rN90Dl2t3t792I8n8DyvDD400BAAAAAAAAAAAwIU5/w8A7eP8/xXXGV+n6xad/wcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACac3h01D2q+fyfpJPkWpLrSb5/33S/AMDFmf8A0D7mPwC0j/kPAO3z9Nnzx/3BYGW1KDrJ9vv94f6wulbr/c28yigbWUw3X8t9wFhVP3w0WFksSgu5u30wzh/sD2dO55fSzUJ9fqnKF6fz/5X7juP8crq5WZ9frs3P5d6diXwv3Xx6mZ2Msl7uZ07yb5eK4sGTwZn8fHkfAFxFveJY7fzu9c5br/K/sD84M19nc2u22WcHgLbae/1ma2002thVKBSTxcGX6hX5W/r5TUXxkzc3/csEXLaTl77pTgAAAAAAAAAAAAAAgPP8ib8cNf2MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALTPtwAAAP//7/Hp0A==")
+setxattr$security_capability(&(0x7f0000000000)='./file1\x00', &(0x7f0000000040), &(0x7f0000000080), 0xc, 0x0) (async, rerun: 64)
+connect$inet6(r0, &(0x7f0000000040)={0xa, 0x4e24, 0x0, @dev={0xfe, 0x80, '\x00', 0x13}, 0x2}, 0x1c) (async, rerun: 64)
+syz_sysconfig_reset__proc_sys_net_ipv6_conf_sit0_addr_gen_mode()
+
+[   41.729566] loop0: detected capacity change from 0 to 128
+[   41.731633] EXT4-fs: Ignoring removed nobh option
+[   41.733433] EXT4-fs: Ignoring removed bh option
+[   41.736128] EXT4-fs error (device loop0): __ext4_fill_super:5473: inode #2: comm syz-executor.0: iget: checksum invalid
+[   41.738832] EXT4-fs (loop0): Remounting filesystem read-only
+[   41.739482] EXT4-fs (loop0): get root inode failed
+[   41.740032] EXT4-fs (loop0): mount failed
+executing program 1:
+r0 = socket$nl_xfrm(0x10, 0x3, 0x6)
+sendmsg$nl_xfrm(r0, &(0x7f0000000000)={0x0, 0x0, &(0x7f0000000100)={&(0x7f0000000f00)=ANY=[@ANYBLOB="b800000015000102"], 0xb8}, 0x1, 0x0, 0x400300}, 0x0)
+
+executing program 0:
+arch_prctl$ARCH_ENABLE_TAGGED_ADDR(0x4002, 0x1)
+arch_prctl$ARCH_ENABLE_TAGGED_ADDR(0x4002, 0x1)
+syz_sysconfig_set__proc_sys_net_ipv4_conf_lo_proxy_arp(0x3f)
+arch_prctl$ARCH_ENABLE_TAGGED_ADDR(0x4002, 0x5)
+syz_sysconfig_reset__proc_sys_net_ipv4_conf_lo_proxy_arp()
+syz_sysconfig_set__proc_sys_net_ipv6_conf_eth0_hop_limit(0x6)
+arch_prctl$ARCH_ENABLE_TAGGED_ADDR(0x4002, 0x3)
+syz_sysconfig_reset__proc_sys_net_ipv6_conf_eth0_hop_limit()
+syz_sysconfig_set__proc_sys_net_ipv4_conf_lo_accept_redirects(0x3ff)
+arch_prctl$ARCH_ENABLE_TAGGED_ADDR(0x4002, 0x4)
+syz_sysconfig_reset__proc_sys_net_ipv4_conf_lo_accept_redirects()
+syz_sysconfig_set__proc_sys_net_ipv6_conf_eth0_hop_limit(0x8)
+syz_sysconfig_reset__proc_sys_net_ipv6_conf_eth0_hop_limit()
+syz_sysconfig_set__proc_sys_user_max_mnt_namespaces(0xfffffff7)
+arch_prctl$ARCH_ENABLE_TAGGED_ADDR(0x4002, 0x1)
+syz_sysconfig_reset__proc_sys_user_max_mnt_namespaces()
+arch_prctl$ARCH_ENABLE_TAGGED_ADDR(0x4002, 0x3)
+syz_sysconfig_reset__proc_sys_net_ipv4_conf_lo_proxy_arp()
+syz_sysconfig_reset__proc_sys_user_max_mnt_namespaces()
+syz_sysconfig_reset__proc_sys_net_ipv6_conf_eth0_hop_limit()
+syz_sysconfig_reset__proc_sys_net_ipv6_conf_eth0_hop_limit()
+syz_sysconfig_set__proc_sys_net_ipv6_conf_eth0_hop_limit(0x6)
+syz_sysconfig_reset__proc_sys_user_max_mnt_namespaces()
+syz_sysconfig_reset__proc_sys_net_ipv6_conf_eth0_hop_limit()
+syz_sysconfig_reset__proc_sys_net_ipv6_conf_eth0_hop_limit()
+syz_sysconfig_reset__proc_sys_net_ipv6_conf_eth0_hop_limit()
+syz_sysconfig_reset__proc_sys_user_max_mnt_namespaces()
+syz_sysconfig_reset__proc_sys_net_ipv6_conf_eth0_hop_limit()
+syz_proconfig_set__sys_devices_pci0000_00_0000_00_01_1_ata1_host0_target0_0_0_0_0_0_0_block_sda_queue_max_sectors_kb(0x3ff)
+syz_sysconfig_reset__proc_sys_user_max_mnt_namespaces()
+
+[   41.762939] ------------[ cut here ]------------
+[   41.763508] WARNING: CPU: 0 PID: 1217 at mm/page_alloc.c:4545 __alloc_pages+0x347/0x1f00
+[   41.764963] Modules linked in:
+[   41.765401] CPU: 0 PID: 1217 Comm: syz-executor.1 Not tainted 6.8.0 #1
+[   41.766527] Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   41.768277] RIP: 0010:__alloc_pages+0x347/0x1f00
+[   41.769430] Code: 85 c0 0f 84 e4 01 00 00 0f 1f 44 00 00 eb 27 41 83 fc 0a 0f 86 b1 fd ff ff 80 3d 1a 5f 11 04 00 75 0b c6 05 11 5f 11 04 01 90 <0f> 0b 90 48 c7 44 24 08 00 00 00 00 48 b8 00 00 00 00 00 fc ff df
+[   41.772201] RSP: 0018:ffff88801520f890 EFLAGS: 00010246
+[   41.772815] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+[   41.773593] RDX: 0000000000000000 RSI: 1ffff11002a41f25 RDI: 0000000000040cc0
+[   41.774401] RBP: 0000000000400300 R08: 0000000000000001 R09: ffffed1000fca029
+[   41.775201] R10: ffff88801520fb00 R11: 0000000000000000 R12: 000000000000000b
+[   41.776012] R13: 0000000000040cc0 R14: 0000000000400300 R15: ffffffff835229dc
+[   41.776852] FS:  00007fc1743fa6c0(0000) GS:ffff88806d200000(0000) knlGS:0000000000000000
+[   41.777814] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   41.778424] CR2: 00007f4a40faef20 CR3: 000000000e03e000 CR4: 0000000000350ef0
+[   41.779218] Call Trace:
+[   41.779499]  <TASK>
+[   41.779787]  ? show_regs+0x96/0xa0
+[   41.780178]  ? __warn+0xe6/0x2c0
+[   41.780546]  ? __alloc_pages+0x347/0x1f00
+[   41.781023]  ? report_bug+0x2fe/0x400
+[   41.781441]  ? __alloc_pages+0x347/0x1f00
+[   41.781912]  ? handle_bug+0x99/0x130
+[   41.782324]  ? exc_invalid_op+0x36/0x90
+[   41.782790]  ? asm_exc_invalid_op+0x1a/0x20
+[   41.783255]  ? sock_kmalloc+0x10c/0x170
+[   41.783689]  ? __alloc_pages+0x347/0x1f00
+[   41.784168]  ? update_load_avg+0x124/0x1ff0
+[   41.784629]  ? update_cfs_group+0x103/0x270
+[   41.785129]  ? xfd_validate_state+0x51/0x180
+[   41.785607]  ? __pfx___alloc_pages+0x10/0x10
+[   41.786118]  ? save_fpregs_to_fpstate+0x148/0x270
+[   41.786646]  ? __schedule+0xa03/0x1fb0
+[   41.787109]  ? __pfx___schedule+0x10/0x10
+[   41.787560]  ? sock_kmalloc+0x10c/0x170
+[   41.788033]  __kmalloc_large_node+0x74/0x140
+[   41.788516]  ? import_ubuf+0x1ac/0x210
+[   41.788968]  __kmalloc+0x2b3/0x370
+[   41.789355]  ? sock_kmalloc+0x10c/0x170
+[   41.789830]  sock_kmalloc+0x10c/0x170
+[   41.790243]  ____sys_sendmsg+0x6a7/0xbd0
+[   41.790751]  ? __pfx_____sys_sendmsg+0x10/0x10
+[   41.791282]  ? __pfx_futex_wake_mark+0x10/0x10
+[   41.791793]  ___sys_sendmsg+0x110/0x1b0
+[   41.792217]  ? __pfx____sys_sendmsg+0x10/0x10
+[   41.792691]  ? futex_wait+0x110/0x380
+[   41.793112]  ? __pfx_futex_wait+0x10/0x10
+[   41.793545]  ? __pfx_futex_wake+0x10/0x10
+[   41.794018]  ? errseq_sample+0x5a/0x70
+[   41.794424]  ? alloc_file+0x5a6/0x820
+[   41.794848]  ? __fget_light+0x19c/0x550
+[   41.795268]  __sys_sendmsg+0xf7/0x1d0
+[   41.795663]  ? __pfx___sys_sendmsg+0x10/0x10
+[   41.796143]  ? xfd_validate_state+0x51/0x180
+[   41.796604]  ? fpregs_restore_userregs+0x10b/0x270
+[   41.797140]  do_syscall_64+0xb3/0x1b0
+[   41.797539]  entry_SYSCALL_64_after_hwframe+0x6f/0x77
+[   41.798100] RIP: 0033:0x7fc1750de169
+[   41.798483] Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 e1 20 00 00 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+[   41.800768] RSP: 002b:00007fc1743fa0c8 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
+[   41.801595] RAX: ffffffffffffffda RBX: 00007fc1752aef80 RCX: 00007fc1750de169
+[   41.802462] RDX: 0000000000000000 RSI: 0000000020000000 RDI: 0000000000000003
+[   41.803227] RBP: 00007fc1751888be R08: 0000000000000000 R09: 0000000000000000
+[   41.803999] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+[   41.804760] R13: 0000000000000006 R14: 00007fc1752aef80 R15: 00007ffffea04e08
+[   41.805518]  </TASK>
+[   41.805779] ---[ end trace 0000000000000000 ]---
+[   41.885887] loop1: detected capacity change from 0 to 4096
+[   41.894761] EXT4-fs (loop1): can't mount with commit=7, fs mounted w/o journal
+[   41.902420] I/O error, dev loop1, sector 3968 op 0x0:(READ) flags 0x80700 phys_seg 1 prio class 0
+[   41.910882] loop1: detected capacity change from 0 to 128
+[   41.921831] EXT4-fs (loop1): mounted filesystem 76b65be2-f6da-4727-8c75-0525a5b65a09 r/w without journal. Quota mode: none.
+[   41.925141] ext4 filesystem being mounted at /syzkaller-testdir3972230665/syzkaller.j6SX9U/7/mnt supports timestamps until 2038-01-19 (0x7fffffff)
+[   41.992612] loop0: detected capacity change from 0 to 2048
+[   42.038053] EXT4-fs (loop1): unmounting filesystem 76b65be2-f6da-4727-8c75-0525a5b65a09.
+
+VM DIAGNOSIS:
+17:02:09  Registers:
+info registers vcpu 0
+
+CPU#0
+RAX=0000000000000049 RBX=00000000000003f8 RCX=0000000000000000 RDX=00000000000003f8
+RSI=ffffffff823ff685 RDI=ffffffff86a350c8 RBP=ffffffff86a350c0 RSP=ffff88801520f220
+R8 =0000000000000001 R9 =000000000000000a R10=0000000000000049 R11=000000003a504952
+R12=0000000000000049 R13=ffffffff869a9911 R14=0000000000000010 R15=dffffc0000000000
+RIP=ffffffff823ff6dd RFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0000 0000000000000000 00000000 00000000
+CS =0010 0000000000000000 ffffffff 00a09b00 DPL=0 CS64 [-RA]
+SS =0018 0000000000000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0000 0000000000000000 00000000 00000000
+FS =0000 00007fc1743fa6c0 00000000 00000000
+GS =0000 ffff88806d200000 00000000 00000000
+LDT=0000 fffffe0000000000 00000000 00000000
+TR =0040 fffffe0000003000 00004087 00008b00 DPL=0 TSS64-busy
+GDT=     fffffe0000001000 0000007f
+IDT=     fffffe0000000000 00000fff
+CR0=80050033 CR2=00007f4a40faef20 CR3=000000000e03e000 CR4=00350ef0
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+EFER=0000000000000d01
+FCW=037f FSW=0000 [ST=0] FTW=00 MXCSR=00001f80
+FPR0=0000000000000000 0000 FPR1=0000000000000000 0000
+FPR2=0000000000000000 0000 FPR3=0000000000000000 0000
+FPR4=0000000000000000 0000 FPR5=0000000000000000 0000
+FPR6=0000000000000000 0000 FPR7=0000000000000000 0000
+YMM00=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM01=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM02=0000000000000000 0000000000000000 00007ffffea04ff0 00007fc175188859
+YMM03=0000000000000000 0000000000000000 00007ffffea04e70 0000000000000000
+YMM04=0000000000000000 0000000000000000 0000000000000000 00007fc1750ace38
+YMM05=0000000000000000 0000000000000000 00000000fbad8001 000000000000003f
+YMM06=0000000000000000 0000000000000000 00007ffffea05190 00007ffffea05190
+YMM07=0000000000000000 0000000000000000 0000000000000003 00007ffffea05190
+YMM08=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM09=0000000000000000 0000000000000000 0000000000000000 00007fc175188367
+YMM10=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM11=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM12=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM13=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM14=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM15=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+info registers vcpu 1
+
+CPU#1
+RAX=0000000000000000 RBX=ffffffff81371d80 RCX=ffffffff810c696f RDX=ffff888009b24300
+RSI=0000000000000000 RDI=0000000000000007 RBP=ffff888009d97620 RSP=ffff888009d97578
+R8 =0000000000000007 R9 =0000000000000000 R10=ffffffff8176ea64 R11=ffff88806d3389e0
+R12=ffffffff8176ea64 R13=ffff888009d97650 R14=ffff888009b24300 R15=ffff888009d97620
+RIP=ffffffff8146c265 RFL=00000246 [---Z-P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0000 0000000000000000 00000000 00000000
+CS =0010 0000000000000000 ffffffff 00a09b00 DPL=0 CS64 [-RA]
+SS =0018 0000000000000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0000 0000000000000000 00000000 00000000
+FS =0000 00007f1812dfe8c0 00000000 00000000
+GS =0000 ffff88806d300000 00000000 00000000
+LDT=0000 fffffe0000000000 00000000 00000000
+TR =0040 fffffe000004a000 00004087 00008b00 DPL=0 TSS64-busy
+GDT=     fffffe0000048000 0000007f
+IDT=     fffffe0000000000 00000fff
+CR0=80050033 CR2=00007fa8ebdcbd70 CR3=0000000009926000 CR4=00350ef0
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+EFER=0000000000000d01
+FCW=037f FSW=0000 [ST=0] FTW=00 MXCSR=00001f80
+FPR0=0000000000000000 0000 FPR1=0000000000000000 0000
+FPR2=0000000000000000 0000 FPR3=0000000000000000 0000
+FPR4=0000000000000000 0000 FPR5=0000000000000000 0000
+FPR6=0000000000000000 0000 FPR7=0000000000000000 0000
+YMM00=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM01=0000000000000000 0000000000000000 29cad0f3517d47b8 1a455dfed0c99c13
+YMM02=0000000000000000 0000000000000000 a1fcdcf819d7e1e5 00000000000c01d0
+YMM03=0000000000000000 0000000000000000 ac8bc31478ec8511 00000000000df428
+YMM04=0000000000000000 0000000000000000 dee8796cbad97d23 00000000000e4230
+YMM05=0000000000000000 0000000000000000 8ca0b852b1c7c8e1 00000000000c0228
+YMM06=0000000000000000 0000000000000000 5837fe9dc1c91f32 00000000000c0128
+YMM07=0000000000000000 0000000000000000 da0687a6146d51c8 00000000000af038
+YMM08=0000000000000000 0000000000000000 44495f474f4c5359 530069253d595449
+YMM09=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM10=0000000000000000 0000000000000000 2020000000002020 2020202020200000
+YMM11=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM12=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM13=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM14=0000000000000000 0000000000000000 0000000000000000 0000000000000000
+YMM15=0000000000000000 0000000000000000 0000000000000000 0000000000000000

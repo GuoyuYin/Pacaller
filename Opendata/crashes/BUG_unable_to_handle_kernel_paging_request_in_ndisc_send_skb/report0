@@ -1,0 +1,105 @@
+EXT4-fs (loop5): 1 truncate cleaned up
+EXT4-fs (loop5): mounted filesystem without journal. Opts: noload,resuid=0x000000000000ee01,errors=remount-ro,lazytime,i_version,quota,
+EXT4-fs (loop4): mounted filesystem without journal. Opts: ,errors=continue
+BUG: unable to handle page fault for address: ffff8881150d8c28
+#PF: supervisor write access in kernel mode
+#PF: error_code(0x0002) - not-present page
+PGD 6601067 P4D 6601067 PUD 100879063 PMD 103907063 PTE 0
+Oops: 0002 [#1] SMP KASAN NOPTI
+CPU: 2 PID: 0 Comm: swapper/2 Not tainted 5.10.134+ #1
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:arch_atomic64_inc arch/x86/include/asm/atomic64_64.h:88 [inline]
+RIP: 0010:atomic64_inc include/asm-generic/atomic-instrumented.h:1051 [inline]
+RIP: 0010:atomic_long_inc include/asm-generic/atomic-long.h:161 [inline]
+RIP: 0010:ndisc_send_skb+0x9c5/0xeb0 net/ipv6/ndisc.c:512
+Code: 00 fc ff df 48 89 fa 48 c1 ea 03 80 3c 02 00 0f 85 f4 04 00 00 49 03 9c 24 e8 01 00 00 be 08 00 00 00 48 89 df e8 3b a9 00 fe <f0> 48 ff 03 4d 85 ed 74 41 e8 bd 2b d3 fd 49 8d bd 70 02 00 00 48
+RSP: 0018:ffff88811b309b10 EFLAGS: 00010246
+RAX: 0000000000000001 RBX: ffff8881150d8c28 RCX: ffffffff836d1df5
+RDX: 0000000000000001 RSI: 0000000000000008 RDI: ffff8881150d8c28
+RBP: ffff88811b309cc8 R08: 0000000000000001 R09: ffff8881150d8c2f
+R10: ffffed1022a1b185 R11: 1ffff11023661212 R12: ffff88810e1e2480
+R13: ffff88810a53c000 R14: ffff88810acdcc28 R15: ffff888109373200
+FS:  0000000000000000(0000) GS:ffff88811b300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: ffff8881150d8c28 CR3: 000000010523e000 CR4: 0000000000350ee0
+Call Trace:
+ <IRQ>
+ ndisc_send_rs+0x12a/0x510 net/ipv6/ndisc.c:702
+ addrconf_rs_timer+0x321/0x800 net/ipv6/addrconf.c:3923
+ call_timer_fn+0x3c/0x230 kernel/time/timer.c:1414
+ expire_timers kernel/time/timer.c:1459 [inline]
+ __run_timers.part.0+0x696/0x9e0 kernel/time/timer.c:1753
+ __run_timers kernel/time/timer.c:1731 [inline]
+ run_timer_softirq+0x80/0x120 kernel/time/timer.c:1766
+ __do_softirq+0x183/0x573 kernel/softirq.c:282
+ asm_call_irq_on_stack+0x12/0x20
+ </IRQ>
+ __run_on_irqstack arch/x86/include/asm/irq_stack.h:26 [inline]
+ run_on_irqstack_cond arch/x86/include/asm/irq_stack.h:77 [inline]
+ do_softirq_own_stack+0x2d/0x40 arch/x86/kernel/irq_64.c:77
+ invoke_softirq kernel/softirq.c:374 [inline]
+ __irq_exit_rcu kernel/softirq.c:404 [inline]
+ irq_exit_rcu+0xbf/0x130 kernel/softirq.c:416
+ sysvec_apic_timer_interrupt+0x2c/0x70 arch/x86/kernel/apic/apic.c:1100
+ asm_sysvec_apic_timer_interrupt+0x12/0x20 arch/x86/include/asm/idtentry.h:639
+RIP: 0010:default_idle+0xe/0x20 arch/x86/kernel/process.c:740
+Code: ff ff 48 89 df e8 c2 5c b1 fd e9 51 ff ff ff 48 89 df e8 b5 5c b1 fd eb 92 0f 1f 00 e9 07 00 00 00 0f 00 2d e4 c1 45 00 fb f4 <e9> bd a0 23 00 cc cc cc cc cc cc cc cc cc cc cc cc cc 41 55 41 54
+RSP: 0018:ffff88810027fde0 EFLAGS: 00000293
+RAX: ffffffff83bc9a70 RBX: 0000000000000000 RCX: ffffffff82fcfafc
+RDX: ffff888100269400 RSI: ffffffff82fcfb1a RDI: 0000000000000007
+RBP: 0000000000000001 R08: 0000000000000000 R09: ffff888100269407
+R10: 0000000000000000 R11: ffffffff85b84083 R12: ffffffff84ff65c0
+R13: 0000000000000001 R14: 0000000000000000 R15: ffffffff84ff6600
+ default_enter_idle+0x7f/0xa0 drivers/cpuidle/cpuidle-haltpoll.c:35
+ cpuidle_enter_state+0x17c/0xc70 drivers/cpuidle/cpuidle.c:237
+ cpuidle_enter+0x4a/0xa0 drivers/cpuidle/cpuidle.c:351
+ call_cpuidle kernel/sched/idle.c:229 [inline]
+ cpuidle_idle_call kernel/sched/idle.c:310 [inline]
+ do_idle+0x39e/0x530 kernel/sched/idle.c:381
+ cpu_startup_entry+0x14/0x20 kernel/sched/idle.c:477
+ secondary_startup_64_no_verify+0xcd/0xdb
+Modules linked in:
+CR2: ffff8881150d8c28
+---[ end trace 3fc6708cf9f92d47 ]---
+BUG: unable to handle page fault for address: ffff8881151580c0
+RIP: 0010:arch_atomic64_inc arch/x86/include/asm/atomic64_64.h:88 [inline]
+RIP: 0010:atomic64_inc include/asm-generic/atomic-instrumented.h:1051 [inline]
+RIP: 0010:atomic_long_inc include/asm-generic/atomic-long.h:161 [inline]
+RIP: 0010:ndisc_send_skb+0x9c5/0xeb0 net/ipv6/ndisc.c:512
+Code: 00 fc ff df 48 89 fa 48 c1 ea 03 80 3c 02 00 0f 85 f4 04 00 00 49 03 9c 24 e8 01 00 00 be 08 00 00 00 48 89 df e8 3b a9 00 fe <f0> 48 ff 03 4d 85 ed 74 41 e8 bd 2b d3 fd 49 8d bd 70 02 00 00 48
+#PF: supervisor write access in kernel mode
+RSP: 0018:ffff88811b309b10 EFLAGS: 00010246
+#PF: error_code(0x0002) - not-present page
+RAX: 0000000000000001 RBX: ffff8881150d8c28 RCX: ffffffff836d1df5
+PGD 6601067 
+RDX: 0000000000000001 RSI: 0000000000000008 RDI: ffff8881150d8c28
+RBP: ffff88811b309cc8 R08: 0000000000000001 R09: ffff8881150d8c2f
+P4D 6601067 
+R10: ffffed1022a1b185 R11: 1ffff11023661212 R12: ffff88810e1e2480
+R13: ffff88810a53c000 R14: ffff88810acdcc28 R15: ffff888109373200
+PUD 100879063 
+FS:  0000000000000000(0000) GS:ffff88811b300000(0000) knlGS:0000000000000000
+PMD 103907063 
+CR2: ffff8881150d8c28 CR3: 000000010523e000 CR4: 0000000000350ee0
+
+Oops: 0002 [#2] SMP KASAN NOPTI
+----------------
+Code disassembly (best guess):
+   0:	00 fc                	add    %bh,%ah
+   2:	ff                   	lcall  (bad)
+   3:	df 48 89             	fisttps -0x77(%rax)
+   6:	fa                   	cli
+   7:	48 c1 ea 03          	shr    $0x3,%rdx
+   b:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
+   f:	0f 85 f4 04 00 00    	jne    0x509
+  15:	49 03 9c 24 e8 01 00 	add    0x1e8(%r12),%rbx
+  1c:	00
+  1d:	be 08 00 00 00       	mov    $0x8,%esi
+  22:	48 89 df             	mov    %rbx,%rdi
+  25:	e8 3b a9 00 fe       	call   0xfe00a965
+* 2a:	f0 48 ff 03          	lock incq (%rbx) <-- trapping instruction
+  2e:	4d 85 ed             	test   %r13,%r13
+  31:	74 41                	je     0x74
+  33:	e8 bd 2b d3 fd       	call   0xfdd32bf5
+  38:	49 8d bd 70 02 00 00 	lea    0x270(%r13),%rdi
+  3f:	48                   	rex.W

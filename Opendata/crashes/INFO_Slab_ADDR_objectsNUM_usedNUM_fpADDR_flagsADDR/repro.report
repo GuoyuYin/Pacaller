@@ -1,0 +1,68 @@
+BUG 9p-fcall-cache (Not tainted): Objects remaining in 9p-fcall-cache on __kmem_cache_shutdown()
+-----------------------------------------------------------------------------
+Disabling lock debugging due to kernel taint
+INFO: Slab 0x00000000ab344ab9 objects=3 used=2 fp=0x00000000c9d3ca19 flags=0x200000000010200
+CPU: 1 PID: 433 Comm: syz-executor380 Tainted: G    B             5.10.134+ #1
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0xfe/0x130 lib/dump_stack.c:118
+ slab_err+0xab/0xe0 mm/slub.c:747
+ list_slab_objects mm/slub.c:3919 [inline]
+ free_partial mm/slub.c:3952 [inline]
+ __kmem_cache_shutdown+0x165/0x2f0 mm/slub.c:3984
+ shutdown_cache mm/slab_common.c:455 [inline]
+ kmem_cache_destroy+0x48/0x100 mm/slab_common.c:502
+ p9_client_destroy+0x2d1/0x390 net/9p/client.c:1099
+ v9fs_session_init+0x67b/0x1510 fs/9p/v9fs.c:482
+ v9fs_mount+0x7a/0x8c0 fs/9p/vfs_super.c:126
+ legacy_get_tree+0xf6/0x200 fs/fs_context.c:594
+ vfs_get_tree+0x84/0x330 fs/super.c:1636
+ do_new_mount fs/namespace.c:2983 [inline]
+ path_mount+0x69a/0x1d90 fs/namespace.c:3313
+ do_mount fs/namespace.c:3326 [inline]
+ __do_sys_mount fs/namespace.c:3534 [inline]
+ __se_sys_mount fs/namespace.c:3511 [inline]
+ __x64_sys_mount+0x282/0x300 fs/namespace.c:3511
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x31/0x50 arch/x86/entry/common.c:79
+ entry_SYSCALL_64_after_hwframe+0x62/0xc7
+RIP: 0033:0x7f6b1d1046cd
+Code: b3 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f6b1d0e3208 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
+RAX: ffffffffffffffda RBX: 00007f6b1d1b8a88 RCX: 00007f6b1d1046cd
+RDX: 00002000000000c0 RSI: 0000200000000040 RDI: 0000000000000000
+RBP: 00007f6b1d1b8a80 R08: 0000200000000100 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007f6b1d1886e0
+R13: 0030656c69662f2e R14: 0000200000000040 R15: 0000200000000100
+INFO: Object 0x00000000792c46e4 @offset=0
+INFO: Object 0x000000008866ed64 @offset=8448
+kmem_cache_destroy 9p-fcall-cache: Slab cache still has objects
+CPU: 1 PID: 433 Comm: syz-executor380 Tainted: G    B             5.10.134+ #1
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0xfe/0x130 lib/dump_stack.c:118
+ kmem_cache_destroy+0xeb/0x100 mm/slab_common.c:506
+ p9_client_destroy+0x2d1/0x390 net/9p/client.c:1099
+ v9fs_session_init+0x67b/0x1510 fs/9p/v9fs.c:482
+ v9fs_mount+0x7a/0x8c0 fs/9p/vfs_super.c:126
+ legacy_get_tree+0xf6/0x200 fs/fs_context.c:594
+ vfs_get_tree+0x84/0x330 fs/super.c:1636
+ do_new_mount fs/namespace.c:2983 [inline]
+ path_mount+0x69a/0x1d90 fs/namespace.c:3313
+ do_mount fs/namespace.c:3326 [inline]
+ __do_sys_mount fs/namespace.c:3534 [inline]
+ __se_sys_mount fs/namespace.c:3511 [inline]
+ __x64_sys_mount+0x282/0x300 fs/namespace.c:3511
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x31/0x50 arch/x86/entry/common.c:79
+ entry_SYSCALL_64_after_hwframe+0x62/0xc7
+RIP: 0033:0x7f6b1d1046cd
+Code: b3 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f6b1d0e3208 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
+RAX: ffffffffffffffda RBX: 00007f6b1d1b8a88 RCX: 00007f6b1d1046cd
+RDX: 00002000000000c0 RSI: 0000200000000040 RDI: 0000000000000000
+RBP: 00007f6b1d1b8a80 R08: 0000200000000100 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007f6b1d1886e0
+R13: 0030656c69662f2e R14: 0000200000000040 R15: 0000200000000100

@@ -1,0 +1,25 @@
+INFO: rcu_tasks_trace detected stalls? (Late IPI?)
+loop1: detected capacity change from 0 to 512
+loop6: detected capacity change from 0 to 256
+loop2: detected capacity change from 0 to 512
+EXT4-fs (loop2): feature flags set on rev 0 fs, running e2fsck is recommended
+EXT4-fs (loop2): mounting ext2 file system using the ext4 subsystem
+EXT4-fs (loop2): warning: checktime reached, running e2fsck is recommended
+EXT4-fs (loop2): 1 truncate cleaned up
+EXT4-fs (loop2): mounted filesystem 00000000-0000-0000-0000-000000000000 r/w without journal. Quota mode: none.
+sr 1:0:0:0: [sr0] CDROM not ready.  Make sure there is a disc in the drive.
+EXT4-fs error (device loop2): ext4_validate_block_bitmap:431: comm syz-executor.2: bg 0: block 46: invalid block bitmap
+EXT4-fs (loop2): unmounting filesystem 00000000-0000-0000-0000-000000000000.
+loop3: detected capacity change from 0 to 512
+EXT4-fs error (device loop3): ext4_xattr_ibody_find:2240: inode #15: comm syz-executor.3: corrupted in-inode xattr: invalid ea_ino
+EXT4-fs error (device loop3): ext4_orphan_get:1392: comm syz-executor.3: couldn't read orphan inode 15 (err -117)
+loop1: detected capacity change from 0 to 512
+EXT4-fs (loop3): mounted filesystem 00000000-0000-0000-0000-000000000000 r/w without journal. Quota mode: writeback.
+EXT4-fs (loop3): unmounting filesystem 00000000-0000-0000-0000-000000000000.
+loop6: detected capacity change from 0 to 512
+audit: type=1400 audit(1743087133.559:314): avc:  denied  { create } for  pid=16850 comm="syz-executor.7" scontext=system_u:system_r:kernel_t:s0 tcontext=system_u:system_r:kernel_t:s0 tclass=dccp_socket permissive=1
+lo (unregistering): left allmulticast mode
+lo (unregistering): left allmulticast mode
+EXT4-fs (loop4): unmounting filesystem 00000000-0000-0000-0000-000000000000.
+loop1: detected capacity change from 0 to 512
+SELinux: security_context_str_to_sid (system_u) failed with errno=-22

@@ -1,0 +1,85 @@
+audit: type=1326 audit(1744978484.909:41658): auid=0 uid=0 gid=0 ses=3 subj=system_u:system_r:kernel_t:s0 pid=20662 comm="syz.2.1354" exe="/syz-executor" sig=0 arch=c000003e syscall=191 compat=0 ip=0x7fdda8709c29 code=0x7ffc0000
+ata1: lost interrupt (Status 0x58)
+EXT4-fs (loop7): Mount option "dioread_lock" incompatible with ext3
+general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+CPU: 1 PID: 113 Comm: systemd-journal Tainted: G S                5.10.134+ #1
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:__skb_unlink include/linux/skbuff.h:2112 [inline]
+RIP: 0010:__skb_try_recv_from_queue+0x146/0x820 net/core/datagram.c:199
+Code: 00 49 8d 7c 24 08 48 c7 03 00 00 00 00 48 8b 6b 08 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c7 43 08 00 00 00 00 48 c1 ea 03 <80> 3c 02 00 0f 85 29 06 00 00 48 89 ea 49 89 6c 24 08 48 b8 00 00
+RSP: 0018:ffff88810a867700 EFLAGS: 00010012
+RAX: dffffc0000000000 RBX: ffff888117a97e00 RCX: ffffffff8319eae4
+RDX: 0000000000000001 RSI: ffffffff8319eb3c RDI: 0000000000000008
+RBP: ffff88810a3b10d0 R08: ffff88810a8677b0 R09: ffff88810a867870
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+R13: ffff8881094888c0 R14: ffff88810a867928 R15: ffff88810a867870
+FS:  00007f1deb44c900(0000) GS:ffff88811b280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f1de6839e50 CR3: 000000010a9a8000 CR4: 0000000000350ee0
+Call Trace:
+ __skb_try_recv_datagram+0x15b/0x430 net/core/datagram.c:265
+ __skb_recv_datagram+0x195/0x210 net/core/datagram.c:297
+ skb_recv_datagram+0x9f/0xd0 net/core/datagram.c:317
+ netlink_recvmsg+0xe1/0xd80 net/netlink/af_netlink.c:1914
+ sock_recvmsg_nosec net/socket.c:904 [inline]
+ sock_recvmsg+0x151/0x190 net/socket.c:922
+ ____sys_recvmsg+0x203/0x5d0 net/socket.c:2646
+ ___sys_recvmsg+0x137/0x210 net/socket.c:2688
+ __sys_recvmsg+0xe2/0x1b0 net/socket.c:2724
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x31/0x50 arch/x86/entry/common.c:79
+ entry_SYSCALL_64_after_hwframe+0x62/0xc7
+RIP: 0033:0x7f1debd12e1d
+Code: 28 89 54 24 1c 48 89 74 24 10 89 7c 24 08 e8 fa 3b f8 ff 8b 54 24 1c 48 8b 74 24 10 41 89 c0 8b 7c 24 08 b8 2f 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 33 44 89 c7 48 89 44 24 08 e8 2e 3c f8 ff 48
+RSP: 002b:00007fff71a5d740 EFLAGS: 00000293 ORIG_RAX: 000000000000002f
+RAX: ffffffffffffffda RBX: 0000000000000001 RCX: 00007f1debd12e1d
+RDX: 0000000040000040 RSI: 00007fff71a5d7c0 RDI: 0000000000000006
+RBP: 00007fff71a5d7c0 R08: 0000000000000000 R09: 000000000071c723
+R10: 00000000ffffffff R11: 0000000000000293 R12: 00007fff71a5db48
+R13: 000055b1f74be360 R14: 0000000000000100 R15: 0000000000000006
+Modules linked in:
+---[ end trace 666257ec6b5d50cc ]---
+RIP: 0010:__skb_unlink include/linux/skbuff.h:2112 [inline]
+RIP: 0010:__skb_try_recv_from_queue+0x146/0x820 net/core/datagram.c:199
+Code: 00 49 8d 7c 24 08 48 c7 03 00 00 00 00 48 8b 6b 08 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c7 43 08 00 00 00 00 48 c1 ea 03 <80> 3c 02 00 0f 85 29 06 00 00 48 89 ea 49 89 6c 24 08 48 b8 00 00
+RSP: 0018:ffff88810a867700 EFLAGS: 00010012
+RAX: dffffc0000000000 RBX: ffff888117a97e00 RCX: ffffffff8319eae4
+RDX: 0000000000000001 RSI: ffffffff8319eb3c RDI: 0000000000000008
+RBP: ffff88810a3b10d0 R08: ffff88810a8677b0 R09: ffff88810a867870
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+R13: ffff8881094888c0 R14: ffff88810a867928 R15: ffff88810a867870
+FS:  00007f1deb44c900(0000) GS:ffff88811b280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f1de6839e50 CR3: 000000010a9a8000 CR4: 0000000000350ee0
+systemd[1]: systemd-journald.service: Scheduled restart job, restart counter is at 1.
+systemd[1]: Stopping Flush Journal to Persistent Storage...
+systemd[1]: systemd-journal-flush.service: Succeeded.
+systemd[1]: Stopped Flush Journal to Persistent Storage.
+systemd[1]: Stopped Journal Service.
+systemd[1]: systemd-journald.service: Consumed 6.253s CPU time.
+systemd[1]: Starting Journal Service...
+systemd-journald[21407]: File /var/log/journal/69b4f9e502db4e368557c6a568ac4b10/system.journal corrupted or uncleanly shut down, renaming and replacing.
+----------------
+Code disassembly (best guess):
+   0:	00 49 8d             	add    %cl,-0x73(%rcx)
+   3:	7c 24                	jl     0x29
+   5:	08 48 c7             	or     %cl,-0x39(%rax)
+   8:	03 00                	add    (%rax),%eax
+   a:	00 00                	add    %al,(%rax)
+   c:	00 48 8b             	add    %cl,-0x75(%rax)
+   f:	6b 08 48             	imul   $0x48,(%rax),%ecx
+  12:	b8 00 00 00 00       	mov    $0x0,%eax
+  17:	00 fc                	add    %bh,%ah
+  19:	ff                   	lcall  (bad)
+  1a:	df 48 89             	fisttps -0x77(%rax)
+  1d:	fa                   	cli
+  1e:	48 c7 43 08 00 00 00 	movq   $0x0,0x8(%rbx)
+  25:	00
+  26:	48 c1 ea 03          	shr    $0x3,%rdx
+* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
+  2e:	0f 85 29 06 00 00    	jne    0x65d
+  34:	48 89 ea             	mov    %rbp,%rdx
+  37:	49 89 6c 24 08       	mov    %rbp,0x8(%r12)
+  3c:	48                   	rex.W
+  3d:	b8                   	.byte 0xb8

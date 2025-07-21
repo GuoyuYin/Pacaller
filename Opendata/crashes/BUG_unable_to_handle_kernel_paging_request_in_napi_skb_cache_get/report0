@@ -1,0 +1,146 @@
+loop0: detected capacity change from 0 to 2048
+loop0: detected capacity change from 2048 to 2046
+EXT4-fs error (device loop0): ext4_validate_block_bitmap:440: comm ext4lazyinit: bg 0: block 8210: padding at end of block bitmap is not set
+BUG: unable to handle page fault for address: ffff888113cf9da8
+#PF: supervisor write access in kernel mode
+#PF: error_code(0x000b) - reserved bit violation
+PGD 7001067 P4D 7001067 PUD 1009a4063 PMD 172cca063 PTE 13cfc16380000001
+Oops: Oops: 000b [#1] SMP KASAN NOPTI
+CPU: 0 UID: 0 PID: 15288 Comm: syz.8.1194 Not tainted 6.16.0-rc5 #1 PREEMPT(voluntary) 
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:memset_orig+0x72/0xb0 arch/x86/lib/memset_64.S:91
+Code: 47 28 48 89 47 30 48 89 47 38 48 8d 7f 40 75 d8 0f 1f 84 00 00 00 00 00 89 d1 83 e1 38 74 14 c1 e9 03 66 0f 1f 44 00 00 ff c9 <48> 89 07 48 8d 7f 08 75 f5 83 e2 07 74 0a ff ca 88 07 48 8d 7f 01
+RSP: 0018:ffff888227808930 EFLAGS: 00010202
+RAX: 0000000000000000 RBX: ffff888113cf9da8 RCX: 0000000000000001
+RDX: 0000000000000010 RSI: 0000000000000000 RDI: ffff888113cf9da8
+RBP: 0000000000000000 R08: 0000000000000005 R09: 0000000000000000
+R10: ffff888113cf9da8 R11: ffff888227808ff8 R12: 00000000000000e8
+R13: ffff8881001cea00 R14: 0000000000002820 R15: ffff8881001cea00
+FS:  00007f7bb3b476c0(0000) GS:ffff8882a0930000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: ffff888113cf9da8 CR3: 00000001a1219000 CR4: 0000000000350ef0
+Call Trace:
+ <IRQ>
+ release_alloc_meta mm/kasan/generic.c:493 [inline]
+ kasan_save_alloc_info+0x2a/0x50 mm/kasan/generic.c:560
+ unpoison_slab_object mm/kasan/common.c:319 [inline]
+ __kasan_mempool_unpoison_object+0x197/0x1e0 mm/kasan/common.c:547
+ kasan_mempool_unpoison_object include/linux/kasan.h:388 [inline]
+ napi_skb_cache_get+0xc1/0x1a0 net/core/skbuff.c:295
+ __alloc_skb+0x131/0x380 net/core/skbuff.c:658
+ napi_alloc_skb+0x177/0x2a0 net/core/skbuff.c:812
+ e1000_alloc_rx_skb drivers/net/ethernet/intel/e1000/e1000_main.c:4116 [inline]
+ e1000_copybreak drivers/net/ethernet/intel/e1000/e1000_main.c:4332 [inline]
+ e1000_clean_rx_irq+0x77d/0x11a0 drivers/net/ethernet/intel/e1000/e1000_main.c:4384
+ e1000_clean+0x97f/0x24d0 drivers/net/ethernet/intel/e1000/e1000_main.c:3807
+ __napi_poll+0xba/0x650 net/core/dev.c:7414
+ napi_poll net/core/dev.c:7478 [inline]
+ net_rx_action+0xa41/0xf70 net/core/dev.c:7605
+ handle_softirqs+0x1b8/0x5c0 kernel/softirq.c:579
+ __do_softirq kernel/softirq.c:613 [inline]
+ invoke_softirq kernel/softirq.c:453 [inline]
+ __irq_exit_rcu kernel/softirq.c:680 [inline]
+ irq_exit_rcu+0xaf/0xe0 kernel/softirq.c:696
+ common_interrupt+0x80/0x90 arch/x86/kernel/irq.c:285
+ </IRQ>
+ <TASK>
+ asm_common_interrupt+0x26/0x40 arch/x86/include/asm/idtentry.h:693
+RIP: 0010:on_stack arch/x86/include/asm/stacktrace.h:56 [inline]
+RIP: 0010:unwind_next_frame+0x1694/0x2400 arch/x86/kernel/unwind_orc.c:665
+Code: 00 0f 85 1b 0d 00 00 49 8d 7d 10 49 8b 6d 08 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 80 3c 02 00 0f 85 ee 0c 00 00 <49> 8b 45 10 48 39 dd 0f 87 b0 f7 ff ff 48 39 d8 0f 86 a7 f7 ff ff
+RSP: 0018:ffff88811d3874c8 EFLAGS: 00000246
+RAX: dffffc0000000000 RBX: ffff88811d387930 RCX: ffff88811d388000
+RDX: 1ffff11023a70ea9 RSI: ffff88811d387920 RDI: ffff88811d387548
+RBP: ffff88811d380000 R08: 0000000000000001 R09: ffff88811d387578
+R10: ffff88811d387538 R11: 0000000000009d0e R12: ffff88811d387598
+R13: ffff88811d387538 R14: ffff88811d387930 R15: ffff88811d387928
+ arch_stack_walk+0x94/0x100 arch/x86/kernel/stacktrace.c:25
+ stack_trace_save+0x8e/0xc0 kernel/stacktrace.c:122
+ kasan_save_stack+0x33/0x60 mm/kasan/common.c:47
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:68
+ kasan_save_free_info+0x3b/0x60 mm/kasan/generic.c:576
+ poison_slab_object mm/kasan/common.c:247 [inline]
+ __kasan_slab_free+0x37/0x50 mm/kasan/common.c:264
+ kasan_slab_free include/linux/kasan.h:233 [inline]
+ slab_free_hook mm/slub.c:2381 [inline]
+ slab_free mm/slub.c:4643 [inline]
+ kfree+0xcf/0x360 mm/slub.c:4842
+ iter_file_splice_write+0x669/0x1070 fs/splice.c:767
+ do_splice_from fs/splice.c:935 [inline]
+ direct_splice_actor+0x192/0x630 fs/splice.c:1158
+ splice_direct_to_actor+0x342/0xa00 fs/splice.c:1102
+ do_splice_direct_actor fs/splice.c:1201 [inline]
+ do_splice_direct+0x17d/0x250 fs/splice.c:1227
+ do_sendfile+0xb13/0xe50 fs/read_write.c:1370
+ __do_sys_sendfile64 fs/read_write.c:1431 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1417 [inline]
+ __x64_sys_sendfile64+0x1c7/0x210 fs/read_write.c:1417
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0xa8/0x270 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f7bb56b8f29
+Code: ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f7bb3b47038 EFLAGS: 00000246 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f7bb5d95fa0 RCX: 00007f7bb56b8f29
+RDX: 0000000000000000 RSI: 0000000000000006 RDI: 0000000000000005
+RBP: 00007f7bb596805f R08: 0000000000000000 R09: 0000000000000000
+R10: 000000007fffff67 R11: 0000000000000246 R12: 0000000000000000
+R13: 0000000000000000 R14: 00007f7bb5d95fa0 R15: 00007ffcb5539058
+ </TASK>
+Modules linked in:
+CR2: ffff888113cf9da8
+---[ end trace 0000000000000000 ]---
+BUG: unable to handle page fault for address: ffff888113df9000
+RIP: 0010:memset_orig+0x72/0xb0 arch/x86/lib/memset_64.S:91
+#PF: supervisor read access in kernel mode
+Code: 47 28 48 89 47 30 48 89 47 38 48 8d 7f 40 75 d8 0f 1f 84 00 00 00 00 00 89 d1 83 e1 38 74 14 c1 e9 03 66 0f 1f 44 00 00 ff c9 <48> 89 07 48 8d 7f 08 75 f5 83 e2 07 74 0a ff ca 88 07 48 8d 7f 01
+#PF: error_code(0x0009) - reserved bit violation
+RSP: 0018:ffff888227808930 EFLAGS: 00010202
+PGD 7001067 P4D 7001067 
+
+RAX: 0000000000000000 RBX: ffff888113cf9da8 RCX: 0000000000000001
+PUD 1009a4063 
+RDX: 0000000000000010 RSI: 0000000000000000 RDI: ffff888113cf9da8
+PMD 172cca063 
+RBP: 0000000000000000 R08: 0000000000000005 R09: 0000000000000000
+PTE 13dfc16380000001
+R10: ffff888113cf9da8 R11: ffff888227808ff8 R12: 00000000000000e8
+
+Oops: Oops: 0009 [#2] SMP KASAN NOPTI
+R13: ffff8881001cea00 R14: 0000000000002820 R15: ffff8881001cea00
+CPU: 6 UID: 0 PID: 15408 Comm: syz.1.1203 Tainted: G      D             6.16.0-rc5 #1 PREEMPT(voluntary) 
+FS:  00007f7bb3b476c0(0000) GS:ffff8882a0930000(0000) knlGS:0000000000000000
+Tainted: [D]=DIE
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+CR2: ffff888113cf9da8 CR3: 00000001a1219000 CR4: 0000000000350ef0
+RIP: 0010:ptep_get include/linux/pgtable.h:340 [inline]
+RIP: 0010:do_zap_pte_range mm/memory.c:1672 [inline]
+RIP: 0010:zap_pte_range mm/memory.c:1735 [inline]
+RIP: 0010:zap_pmd_range mm/memory.c:1827 [inline]
+RIP: 0010:zap_pud_range mm/memory.c:1856 [inline]
+RIP: 0010:zap_p4d_range mm/memory.c:1877 [inline]
+RIP: 0010:unmap_page_range+0x810/0x32b0 mm/memory.c:1898
+----------------
+Code disassembly (best guess):
+   0:	47 28 48 89          	rex.RXB sub %r9b,-0x77(%r8)
+   4:	47 30 48 89          	rex.RXB xor %r9b,-0x77(%r8)
+   8:	47 38 48 8d          	rex.RXB cmp %r9b,-0x73(%r8)
+   c:	7f 40                	jg     0x4e
+   e:	75 d8                	jne    0xffffffe8
+  10:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+  17:	00
+  18:	89 d1                	mov    %edx,%ecx
+  1a:	83 e1 38             	and    $0x38,%ecx
+  1d:	74 14                	je     0x33
+  1f:	c1 e9 03             	shr    $0x3,%ecx
+  22:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  28:	ff c9                	dec    %ecx
+* 2a:	48 89 07             	mov    %rax,(%rdi) <-- trapping instruction
+  2d:	48 8d 7f 08          	lea    0x8(%rdi),%rdi
+  31:	75 f5                	jne    0x28
+  33:	83 e2 07             	and    $0x7,%edx
+  36:	74 0a                	je     0x42
+  38:	ff ca                	dec    %edx
+  3a:	88 07                	mov    %al,(%rdi)
+  3c:	48 8d 7f 01          	lea    0x1(%rdi),%rdi

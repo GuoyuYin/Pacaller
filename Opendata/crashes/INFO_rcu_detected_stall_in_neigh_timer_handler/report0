@@ -1,0 +1,93 @@
+devtmpfs: Unknown parameter 'Ê.'
+tmpfs: Bad value for 'mpol'
+9pnet: Insufficient options for proto=fd
+Process accounting resumed
+hrtimer: interrupt took 70750 ns
+rcu: INFO: rcu_sched self-detected stall on CPU
+rcu: 	0-....: (21000 ticks this GP) idle=fda/1/0x4000000000000000 softirq=27222/27225 fqs=4931 
+	(t=21003 jiffies g=25929 q=201160)
+NMI backtrace for cpu 0
+CPU: 0 PID: 15120 Comm: syz.5.1101 Not tainted 5.10.134+ #1
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <IRQ>
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0xfe/0x130 lib/dump_stack.c:118
+ nmi_cpu_backtrace+0x149/0x1d0 lib/nmi_backtrace.c:105
+ nmi_trigger_cpumask_backtrace+0x1e6/0x240 lib/nmi_backtrace.c:62
+ arch_trigger_cpumask_backtrace+0x10/0x20 arch/x86/kernel/apic/hw_nmi.c:39
+ trigger_single_cpu_backtrace include/linux/nmi.h:174 [inline]
+ rcu_dump_cpu_stacks+0x1b6/0x2b0 kernel/rcu/tree_stall.h:340
+ print_cpu_stall kernel/rcu/tree_stall.h:590 [inline]
+ check_cpu_stall kernel/rcu/tree_stall.h:673 [inline]
+ rcu_pending kernel/rcu/tree.c:3782 [inline]
+ rcu_sched_clock_irq+0xf8f/0x1870 kernel/rcu/tree.c:2590
+ update_process_times+0x139/0x1b0 kernel/time/timer.c:1712
+ tick_sched_handle+0x141/0x180 kernel/time/tick-sched.c:222
+ tick_sched_timer+0xe1/0x110 kernel/time/tick-sched.c:1384
+ __run_hrtimer kernel/time/hrtimer.c:1584 [inline]
+ __hrtimer_run_queues+0x409/0x860 kernel/time/hrtimer.c:1648
+ hrtimer_interrupt+0x30c/0xa10 kernel/time/hrtimer.c:1710
+ local_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1089 [inline]
+ __sysvec_apic_timer_interrupt+0xc8/0x2c0 arch/x86/kernel/apic/apic.c:1106
+ run_sysvec_on_irqstack_cond arch/x86/include/asm/irq_stack.h:91 [inline]
+ sysvec_apic_timer_interrupt+0x27/0x70 arch/x86/kernel/apic/apic.c:1100
+ asm_sysvec_apic_timer_interrupt+0x12/0x20 arch/x86/include/asm/idtentry.h:639
+RIP: 0010:get_current arch/x86/include/asm/current.h:15 [inline]
+RIP: 0010:__sanitizer_cov_trace_pc+0x4/0x60 kernel/kcov.c:196
+Code: ff b8 20 00 00 00 4d 8b 08 49 8b 34 24 48 0f bd c8 48 63 c9 e9 68 ff ff ff 4d 01 ce 4d 89 30 e9 09 fe ff ff 66 90 48 8b 34 24 <65> 48 8b 14 25 00 6e 02 00 65 8b 05 ec 23 c2 7e a9 00 01 ff 00 74
+RSP: 0018:ffff88811b209cf8 EFLAGS: 00000246
+RAX: 0000000000000000 RBX: ffff888013f968c0 RCX: ffffffff8317a42a
+RDX: ffff888109766400 RSI: ffffffff8317a43d RDI: 0000000000000005
+RBP: 0000000000000001 R08: 0000000000000000 R09: ffff888013f969b7
+R10: 0000000000000001 R11: 1ffff11023641313 R12: ffff888013f969b4
+R13: ffffed10207f5b09 R14: ffff888013f968c0 R15: ffff888103fad838
+ kfree_skb net/core/skbuff.c:709 [inline]
+ kfree_skb+0x7d/0x240 net/core/skbuff.c:704
+ __skb_queue_purge include/linux/skbuff.h:2853 [inline]
+ neigh_invalidate+0x3c6/0x570 net/core/neighbour.c:1025
+ neigh_timer_handler+0xb71/0xf10 net/core/neighbour.c:1109
+ call_timer_fn+0x3c/0x230 kernel/time/timer.c:1414
+ expire_timers kernel/time/timer.c:1459 [inline]
+ __run_timers.part.0+0x696/0x9e0 kernel/time/timer.c:1753
+ __run_timers kernel/time/timer.c:1731 [inline]
+ run_timer_softirq+0x80/0x120 kernel/time/timer.c:1766
+ __do_softirq+0x183/0x573 kernel/softirq.c:282
+ asm_call_irq_on_stack+0x12/0x20
+ </IRQ>
+ __run_on_irqstack arch/x86/include/asm/irq_stack.h:26 [inline]
+ run_on_irqstack_cond arch/x86/include/asm/irq_stack.h:77 [inline]
+ do_softirq_own_stack+0x2d/0x40 arch/x86/kernel/irq_64.c:77
+ invoke_softirq kernel/softirq.c:374 [inline]
+ __irq_exit_rcu kernel/softirq.c:404 [inline]
+ irq_exit_rcu+0xbf/0x130 kernel/softirq.c:416
+ sysvec_apic_timer_interrupt+0x2c/0x70 arch/x86/kernel/apic/apic.c:1100
+ asm_sysvec_apic_timer_interrupt+0x12/0x20 arch/x86/include/asm/idtentry.h:639
+RIP: 0010:finish_task_switch+0x121/0x5c0 kernel/sched/core.c:4311
+Code: 25 fd ff ff fb 65 4c 8b 34 25 00 6e 02 00 49 8d be 20 0d 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 0f b6 04 02 <84> c0 74 08 3c 03 0f 8e 17 03 00 00 41 81 a6 20 0d 00 00 ff ff ff
+RSP: 0018:ffff888104047d60 EFLAGS: 00000216
+RAX: 0000000000000000 RBX: ffff888108b45000 RCX: ffffffff814f5703
+RDX: 1ffff110212ece24 RSI: ffffffff814f5710 RDI: ffff888109767120
+RBP: ffff888104047da0 R08: 0000000000000000 R09: ffffffff8519c96f
+R10: 0000000000000000 R11: ffffffff85b84003 R12: ffff88811b23aa80
+R13: 0000000000000000 R14: ffff888109766400 R15: 0000000000000001
+ context_switch kernel/sched/core.c:4474 [inline]
+ __schedule+0x874/0x3e80 kernel/sched/core.c:5761
+ schedule+0xc4/0x250 kernel/sched/core.c:5843
+ exit_to_user_mode_loop kernel/entry/common.c:161 [inline]
+ exit_to_user_mode_prepare+0x78/0x120 kernel/entry/common.c:200
+ syscall_exit_to_user_mode+0x22/0x150 kernel/entry/common.c:275
+ entry_SYSCALL_64_after_hwframe+0x62/0xc7
+RIP: 0033:0x7f2b63073940
+Code: 83 c0 16 83 e0 f7 74 12 50 48 8d 3d ca a6 32 00 e8 b5 8e f8 ff 0f 1f 44 00 00 c3 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 <83> ff 21 74 0b c3 66 2e 0f 1f 84 00 00 00 00 00 55 53 48 89 f3 48
+RSP: 002b:00007f2b6145eb38 EFLAGS: 00000246
+RAX: 0000000000000000 RBX: 00007f2b6383dfa8 RCX: 00007f2b6304b0a9
+RDX: 00007f2b6145eb40 RSI: 00007f2b6145ec70 RDI: 0000000000000021
+RBP: 00007f2b6383dfa0 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007f2b6383dfac
+R13: 0000000000000000 R14: 00007fffbc051a50 R15: 00007fffbc051b38
+rcu: INFO: rcu_sched detected expedited stalls on CPUs/tasks: { 0-... } 21504 jiffies s: 3945 root: 0x1/.
+rcu: blocking rcu_node structures:
+Task dump for CPU 0:
+task:syz.5.1101      state:R  running task     stack:29232 pid:15120 ppid:  8813 flags:0x0000400c
+Call Trace:

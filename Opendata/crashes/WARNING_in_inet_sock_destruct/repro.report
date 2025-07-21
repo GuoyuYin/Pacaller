@@ -1,0 +1,96 @@
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 265 at net/ipv4/af_inet.c:155 inet_sock_destruct+0x66a/0x810 net/ipv4/af_inet.c:155
+Modules linked in:
+CPU: 3 PID: 265 Comm: syz-executor211 Not tainted 6.6.71-g547c5112b102 #1
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:inet_sock_destruct+0x66a/0x810 net/ipv4/af_inet.c:155
+Code: a9 e8 da 70 b0 fd 0f 0b e9 23 fe ff ff e8 ce 70 b0 fd 0f 0b e9 71 fe ff ff e8 c2 70 b0 fd 0f 0b e9 a9 fe ff ff e8 b6 70 b0 fd <0f> 0b e9 ea fe ff ff e8 7a 27 e2 fd e9 ee fc ff ff 4c 89 ff e8 9d
+RSP: 0018:ffff88811b389d90 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffff88810cac6300 RCX: ffffffff8397fd33
+RDX: ffff888102de93c0 RSI: ffffffff8397fe4a RDI: 0000000000000005
+RBP: 0000000000000d00 R08: 0000000000000005 R09: 0000000000000000
+R10: 0000000000000d00 R11: 00000000000003e2 R12: ffff88810cac6300
+R13: ffff88810cac63c0 R14: 0000000000000002 R15: ffff88811b3b9a80
+FS:  000055556603f3c0(0000) GS:ffff88811b380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fffdfca5df0 CR3: 000000010a2ae000 CR4: 0000000000350ee0
+Call Trace:
+ <IRQ>
+ __sk_destruct+0x52/0x6a0 net/core/sock.c:2189
+ rcu_do_batch kernel/rcu/tree.c:2190 [inline]
+ rcu_core+0x608/0x1920 kernel/rcu/tree.c:2463
+ handle_softirqs+0x1c3/0x5c0 kernel/softirq.c:560
+ __do_softirq kernel/softirq.c:594 [inline]
+ invoke_softirq kernel/softirq.c:434 [inline]
+ __irq_exit_rcu kernel/softirq.c:643 [inline]
+ irq_exit_rcu+0x80/0xb0 kernel/softirq.c:655
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1088 [inline]
+ sysvec_apic_timer_interrupt+0x6a/0x80 arch/x86/kernel/apic/apic.c:1088
+ </IRQ>
+ <TASK>
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:687
+RIP: 0010:orc_find arch/x86/kernel/unwind_orc.c:218 [inline]
+RIP: 0010:unwind_next_frame+0x2ab/0x25c0 arch/x86/kernel/unwind_orc.c:494
+Code: 00 00 00 00 fc ff df 48 c1 ea 03 0f b6 14 02 48 89 f8 83 e0 07 83 c0 03 38 d0 7c 09 84 d2 74 05 e8 8a 83 65 00 44 8b 74 24 28 <42> 8b 04 ad 6c 68 f7 85 4b 8d 14 76 83 c0 01 4c 8d ac 12 9c f7 b3
+RSP: 0018:ffff888102bb7590 EFLAGS: 00000246
+RAX: 0000000000000003 RBX: ffff888102bb7618 RCX: ffffffff8114a1ef
+RDX: 0000000000000000 RSI: ffffffff8114a1fd RDI: ffffffff85f84bd0
+RBP: ffffffff8138d88f R08: 0000000000000004 R09: 00000000000038d8
+R10: 0000000000034000 R11: 00007f32c87c8000 R12: 0000000000000001
+R13: 00000000000038d9 R14: 0000000000010893 R15: ffff888102bb7659
+ arch_stack_walk+0x100/0x170 arch/x86/kernel/stacktrace.c:25
+ stack_trace_save+0x90/0xd0 kernel/stacktrace.c:122
+ kasan_save_stack+0x33/0x60 mm/kasan/common.c:45
+ kasan_set_track+0x25/0x30 mm/kasan/common.c:52
+ __kasan_slab_alloc+0x6e/0x70 mm/kasan/common.c:328
+ kasan_slab_alloc include/linux/kasan.h:188 [inline]
+ slab_post_alloc_hook mm/slab.h:771 [inline]
+ slab_alloc_node mm/slub.c:3523 [inline]
+ slab_alloc mm/slub.c:3531 [inline]
+ __kmem_cache_alloc_lru mm/slub.c:3538 [inline]
+ kmem_cache_alloc+0xf0/0x260 mm/slub.c:3547
+ vma_lock_alloc kernel/fork.c:467 [inline]
+ vm_area_dup+0x51/0x150 kernel/fork.c:522
+ dup_mmap+0x91a/0x1540 kernel/fork.c:725
+ dup_mm kernel/fork.c:1730 [inline]
+ copy_mm kernel/fork.c:1779 [inline]
+ copy_process+0x5d4d/0x6bd0 kernel/fork.c:2548
+ kernel_clone+0x108/0x940 kernel/fork.c:2978
+ __do_sys_clone+0xba/0x100 kernel/fork.c:3121
+ do_syscall_x64 arch/x86/entry/common.c:51 [inline]
+ do_syscall_64+0x38/0x80 arch/x86/entry/common.c:81
+ entry_SYSCALL_64_after_hwframe+0x78/0xe2
+RIP: 0033:0x7f32c87905c7
+Code: 00 66 90 f3 0f 1e fa 64 48 8b 04 25 10 00 00 00 45 31 c0 31 d2 31 f6 bf 11 00 20 01 4c 8d 90 d0 02 00 00 b8 38 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 39 89 c2 85 c0 75 2c 64 48 8b 04 25 10 00 00
+RSP: 002b:00007fffdfca7498 EFLAGS: 00000246 ORIG_RAX: 0000000000000038
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f32c87905c7
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000001200011
+RBP: 00007fffdfca75a0 R08: 0000000000000000 R09: 0000000000000000
+R10: 000055556603f690 R11: 0000000000000246 R12: 0000000000000000
+R13: 0000000000000001 R14: 000000000002f7c7 R15: 00007fffdfca7660
+ </TASK>
+---[ end trace 0000000000000000 ]---
+----------------
+Code disassembly (best guess), 7 bytes skipped:
+   0:	48 c1 ea 03          	shr    $0x3,%rdx
+   4:	0f b6 14 02          	movzbl (%rdx,%rax,1),%edx
+   8:	48 89 f8             	mov    %rdi,%rax
+   b:	83 e0 07             	and    $0x7,%eax
+   e:	83 c0 03             	add    $0x3,%eax
+  11:	38 d0                	cmp    %dl,%al
+  13:	7c 09                	jl     0x1e
+  15:	84 d2                	test   %dl,%dl
+  17:	74 05                	je     0x1e
+  19:	e8 8a 83 65 00       	call   0x6583a8
+  1e:	44 8b 74 24 28       	mov    0x28(%rsp),%r14d
+* 23:	42 8b 04 ad 6c 68 f7 	mov    -0x7a089794(,%r13,4),%eax <-- trapping instruction
+  2a:	85
+  2b:	4b 8d 14 76          	lea    (%r14,%r14,2),%rdx
+  2f:	83 c0 01             	add    $0x1,%eax
+  32:	4c                   	rex.WR
+  33:	8d                   	.byte 0x8d
+  34:	ac                   	lods   %ds:(%rsi),%al
+  35:	12                   	.byte 0x12
+  36:	9c                   	pushf
+  37:	f7                   	.byte 0xf7
+  38:	b3                   	.byte 0xb3

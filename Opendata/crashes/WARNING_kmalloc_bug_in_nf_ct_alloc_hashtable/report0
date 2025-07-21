@@ -1,0 +1,43 @@
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 6284 at mm/util.c:649 kvmalloc_node_noprof+0x1eb/0x200 mm/util.c:649
+Modules linked in:
+CPU: 0 PID: 6284 Comm: sh Not tainted 6.10.0 #1
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:kvmalloc_node_noprof+0x1eb/0x200 mm/util.c:649
+Code: e9 64 ff ff ff e8 05 05 e3 ff 41 81 e5 00 20 00 00 31 ff 44 89 ee e8 f4 fd e2 ff 45 85 ed 0f 85 cd fe ff ff e8 e6 04 e3 ff 90 <0f> 0b 90 e9 8d fe ff ff 66 66 2e 0f 1f 84 00 00 00 00 00 66 90 90
+RSP: 0018:ffff88801b847b18 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: 0000000000000400 RCX: ffffffff8165d03c
+RDX: ffff88800c0cd3c0 RSI: ffffffff8165d04a RDI: 0000000000000005
+RBP: 00000000a46a1000 R08: 0000000000000005 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+R13: 0000000000000000 R14: 00000000ffffffff R15: ffff88801b847e08
+FS:  00007fef24733580(0000) GS:ffff88806d200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055f2ecea56b8 CR3: 000000000a572000 CR4: 0000000000350ef0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000600
+Call Trace:
+ <TASK>
+ kvmalloc_array_node_noprof include/linux/slab.h:800 [inline]
+ nf_ct_alloc_hashtable+0x93/0x150 net/netfilter/nf_conntrack_core.c:2565
+ nf_conntrack_hash_resize+0xa0/0x540 net/netfilter/nf_conntrack_core.c:2586
+ nf_conntrack_hash_sysctl net/netfilter/nf_conntrack_standalone.c:540 [inline]
+ nf_conntrack_hash_sysctl+0xbb/0x110 net/netfilter/nf_conntrack_standalone.c:527
+ proc_sys_call_handler+0x53a/0x690 fs/proc/proc_sysctl.c:592
+ new_sync_write fs/read_write.c:497 [inline]
+ vfs_write+0xa69/0xd80 fs/read_write.c:590
+ ksys_write+0x125/0x250 fs/read_write.c:643
+ do_syscall_x64 arch/x86/entry/common.c:52 [inline]
+ do_syscall_64+0xa6/0x1a0 arch/x86/entry/common.c:83
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fef246494b3
+Code: 8b 15 e1 29 0e 00 f7 d8 64 89 02 48 c7 c0 ff ff ff ff eb b7 0f 1f 00 64 8b 04 25 18 00 00 00 85 c0 75 14 b8 01 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 55 c3 0f 1f 40 00 48 83 ec 28 48 89 54 24 18
+RSP: 002b:00007fff9fb3df88 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 000055f2ecea36b0 RCX: 00007fef246494b3
+RDX: 000000000000000a RSI: 000055f2ecea36b0 RDI: 0000000000000001
+RBP: 000000000000000a R08: 000055f2ecea36b0 R09: 00007fef2472cbe0
+R10: 0000000000000070 R11: 0000000000000246 R12: 0000000000000001
+R13: 000000000000000a R14: 7fffffffffffffff R15: 0000000000000000
+ </TASK>
+---[ end trace 0000000000000000 ]---
+audit: type=1326 audit(1742206179.190:24): auid=0 uid=0 gid=0 ses=4 subj=system_u:system_r:kernel_t:s0 pid=6313 comm="syz-executor.1" exe="/syz-executor.1" sig=31 arch=c000003e syscall=202 compat=0 ip=0x7fa5c991f1a9 code=0x0

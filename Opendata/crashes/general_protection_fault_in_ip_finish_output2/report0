@@ -1,0 +1,113 @@
+EXT4-fs (loop7): 1 truncate cleaned up
+FAT-fs (loop5): bread failed, FSINFO block (sector = 1281)
+validate_nla: 2 callbacks suppressed
+netlink: 'syz.3.2698': attribute type 11 has an invalid length.
+general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.10.134+ #1
+Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:___neigh_lookup_noref include/net/neighbour.h:312 [inline]
+RIP: 0010:__ipv4_neigh_lookup_noref include/net/arp.h:27 [inline]
+RIP: 0010:ip_neigh_gw4 include/net/route.h:372 [inline]
+RIP: 0010:ip_neigh_for_gw include/net/route.h:392 [inline]
+RIP: 0010:ip_finish_output2+0xe1f/0x1920 net/ipv4/ip_output.c:231
+Code: 48 c1 ea 03 41 d3 ec 80 3c 02 00 0f 85 93 09 00 00 49 8b 45 00 4e 8d 24 e0 48 b8 00 00 00 00 00 fc ff df 4c 89 e2 48 c1 ea 03 <80> 3c 02 00 0f 85 63 09 00 00 4d 8b 34 24 4d 85 f6 0f 84 17 06 00
+RSP: 0018:ffff88811b209838 EFLAGS: 00010256
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000020
+RDX: 0000000000000000 RSI: ffffffff834028dc RDI: ffff88810af54b08
+RBP: ffff888101038000 R08: 0000000000000001 R09: 0000000000000003
+R10: 0000000000000000 R11: ffffffff85b84003 R12: 0000000000000000
+R13: ffff88810af54b00 R14: ffff888101038222 R15: ffff88810103821e
+FS:  0000000000000000(0000) GS:ffff88811b200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000563df8829010 CR3: 0000000004a10000 CR4: 0000000000350ef0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000600
+Call Trace:
+ <IRQ>
+ __ip_finish_output.part.0+0x3b4/0x7b0 net/ipv4/ip_output.c:315
+ __ip_finish_output+0xe9/0x120 net/ipv4/ip_output.c:316
+ ip_finish_output net/ipv4/ip_output.c:325 [inline]
+ NF_HOOK_COND include/linux/netfilter.h:293 [inline]
+ ip_output+0x1cc/0x340 net/ipv4/ip_output.c:439
+ dst_output include/net/dst.h:453 [inline]
+ ip_local_out net/ipv4/ip_output.c:126 [inline]
+ __ip_queue_xmit+0x841/0x15f0 net/ipv4/ip_output.c:540
+ __tcp_transmit_skb+0x2aab/0x35a0 net/ipv4/tcp_output.c:1404
+ tcp_transmit_skb net/ipv4/tcp_output.c:1422 [inline]
+ __tcp_retransmit_skb+0x770/0x2720 net/ipv4/tcp_output.c:3261
+ tcp_retransmit_skb+0x28/0x240 net/ipv4/tcp_output.c:3285
+ tcp_retransmit_timer+0x12a1/0x2860 net/ipv4/tcp_timer.c:540
+ tcp_write_timer_handler+0x701/0xa20 net/ipv4/tcp_timer.c:625
+ tcp_write_timer+0x85/0x240 net/ipv4/tcp_timer.c:645
+ call_timer_fn+0x3c/0x230 kernel/time/timer.c:1414
+ expire_timers kernel/time/timer.c:1459 [inline]
+ __run_timers.part.0+0x696/0x9e0 kernel/time/timer.c:1753
+ __run_timers kernel/time/timer.c:1731 [inline]
+ run_timer_softirq+0x80/0x120 kernel/time/timer.c:1766
+ __do_softirq+0x183/0x573 kernel/softirq.c:282
+ asm_call_irq_on_stack+0x12/0x20
+ </IRQ>
+ __run_on_irqstack arch/x86/include/asm/irq_stack.h:26 [inline]
+ run_on_irqstack_cond arch/x86/include/asm/irq_stack.h:77 [inline]
+ do_softirq_own_stack+0x2d/0x40 arch/x86/kernel/irq_64.c:77
+ invoke_softirq kernel/softirq.c:374 [inline]
+ __irq_exit_rcu kernel/softirq.c:404 [inline]
+ irq_exit_rcu+0xbf/0x130 kernel/softirq.c:416
+ sysvec_apic_timer_interrupt+0x2c/0x70 arch/x86/kernel/apic/apic.c:1100
+ asm_sysvec_apic_timer_interrupt+0x12/0x20 arch/x86/include/asm/idtentry.h:639
+RIP: 0010:default_idle+0xe/0x20 arch/x86/kernel/process.c:740
+Code: ff ff 48 89 df e8 c2 5c b1 fd e9 51 ff ff ff 48 89 df e8 b5 5c b1 fd eb 92 0f 1f 00 e9 07 00 00 00 0f 00 2d e4 c1 45 00 fb f4 <e9> bd a0 23 00 cc cc cc cc cc cc cc cc cc cc cc cc cc 41 55 41 54
+RSP: 0018:ffffffff84a07db0 EFLAGS: 00000293
+RAX: ffffffff83bc9a70 RBX: 0000000000000000 RCX: ffffffff82fcfafc
+RDX: ffffffff84a1c000 RSI: ffffffff82fcfb1a RDI: 0000000000000007
+RBP: 0000000000000001 R08: 0000000000000000 R09: ffffffff84a1c007
+R10: 0000000000000000 R11: ffffffff85b84003 R12: ffffffff84ff65c0
+R13: 0000000000000001 R14: 0000000000000000 R15: ffffffff84ff6600
+ default_enter_idle+0x7f/0xa0 drivers/cpuidle/cpuidle-haltpoll.c:35
+ cpuidle_enter_state+0x17c/0xc70 drivers/cpuidle/cpuidle.c:237
+ cpuidle_enter+0x4a/0xa0 drivers/cpuidle/cpuidle.c:351
+ call_cpuidle kernel/sched/idle.c:229 [inline]
+ cpuidle_idle_call kernel/sched/idle.c:310 [inline]
+ do_idle+0x39e/0x530 kernel/sched/idle.c:381
+ cpu_startup_entry+0x14/0x20 kernel/sched/idle.c:477
+ start_kernel+0x34c/0x490 init/main.c:1066
+ secondary_startup_64_no_verify+0xcd/0xdb
+Modules linked in:
+---[ end trace f7c51c00f07e6795 ]---
+RIP: 0010:___neigh_lookup_noref include/net/neighbour.h:312 [inline]
+RIP: 0010:__ipv4_neigh_lookup_noref include/net/arp.h:27 [inline]
+RIP: 0010:ip_neigh_gw4 include/net/route.h:372 [inline]
+RIP: 0010:ip_neigh_for_gw include/net/route.h:392 [inline]
+RIP: 0010:ip_finish_output2+0xe1f/0x1920 net/ipv4/ip_output.c:231
+Code: 48 c1 ea 03 41 d3 ec 80 3c 02 00 0f 85 93 09 00 00 49 8b 45 00 4e 8d 24 e0 48 b8 00 00 00 00 00 fc ff df 4c 89 e2 48 c1 ea 03 <80> 3c 02 00 0f 85 63 09 00 00 4d 8b 34 24 4d 85 f6 0f 84 17 06 00
+RSP: 0018:ffff88811b209838 EFLAGS: 00010256
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000020
+RDX: 0000000000000000 RSI: ffffffff834028dc RDI: ffff88810af54b08
+RBP: ffff888101038000 R08: 0000000000000001 R09: 0000000000000003
+R10: 0000000000000000 R11: ffffffff85b84003 R12: 0000000000000000
+R13: ffff88810af54b00 R14: ffff888101038222 R15: ffff88810103821e
+FS:  0000000000000000(0000) GS:ffff88811b200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000563df8829010 CR3: 0000000004a10000 CR4: 0000000000350ef0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000600
+----------------
+Code disassembly (best guess):
+   0:	48 c1 ea 03          	shr    $0x3,%rdx
+   4:	41 d3 ec             	shr    %cl,%r12d
+   7:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
+   b:	0f 85 93 09 00 00    	jne    0x9a4
+  11:	49 8b 45 00          	mov    0x0(%r13),%rax
+  15:	4e 8d 24 e0          	lea    (%rax,%r12,8),%r12
+  19:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  20:	fc ff df
+  23:	4c 89 e2             	mov    %r12,%rdx
+  26:	48 c1 ea 03          	shr    $0x3,%rdx
+* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
+  2e:	0f 85 63 09 00 00    	jne    0x997
+  34:	4d 8b 34 24          	mov    (%r12),%r14
+  38:	4d 85 f6             	test   %r14,%r14
+  3b:	0f                   	.byte 0xf
+  3c:	84 17                	test   %dl,(%rdi)
+  3e:	06                   	(bad)
