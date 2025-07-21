@@ -40,13 +40,14 @@ Before starting, you need to prepare a base environment for fuzzing. This includ
 
 #### Step 2: Resource Identification and Configuration Analysis
 
-This step corresponds to the **Resource Identification** stage in the paper. You will run the tools within the `resource-extract` directory to analyze the kernel source code you prepared. This process will accomplish two key tasks:
+This step corresponds to the **Resource Identification** stage in the paper. You will run the tools within the `Resource-Identification` directory to analyze the kernel source code you prepared. This process will accomplish two key tasks:
+
 1.  **Automated Static Configuration Analysis**: It generates an optimized kernel `.config` file that enables network-related features to enhance code coverage. You must use this configuration to recompile your kernel.
 2.  **Network Resource Extraction**: It parses network-related data structures, constants, and type definitions from kernel headers and source files, saving them in a structured intermediate format.
 
 #### Step 3: Fuzzing Input Generation
 
-This step corresponds to the **Fuzzing Input Generation** stage. Once resource extraction is complete, you will run the tools in the `resource-generation` directory. These tools use the intermediate files from the previous step to produce the final fuzzing inputs:
+This step corresponds to the **Fuzzing Input Generation** stage. Once resource extraction is complete, you will run the tools in the `Resource-Generation` directory. These tools use the intermediate files from the previous step to produce the final fuzzing inputs:
 1.  **Syscall Specifications**: Generates `Syzlang` files that describe network-related syscalls and their complex data structure arguments.
 2.  **Packet Models**: Creates grammar-based models of protocol packets, which serve as the foundation for packet injection.
 
