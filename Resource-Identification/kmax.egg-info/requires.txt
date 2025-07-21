@@ -1,0 +1,9 @@
+enum34
+regex
+z3-solver
+dd==0.5.7
+networkx==2.2
+requests
+whatthepatch
+packaging
+tqdm
