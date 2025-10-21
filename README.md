@@ -1,6 +1,6 @@
-# Pacaller: Packet-Syscall Ensemble Fuzzing for Linux Kernel Network Stack
+# Pacaller: Packet-Syscall Coordinated Fuzzing for Linux Kernel Network Stack
 
-Pacaller is a packet-syscall ensemble fuzzer designed for the Linux kernel network stack. It addresses the unique challenges of network stack testing by integrating three key techniques. First, Pacaller performs automated configuration analysis to enhance code reachability into network-specific modules. Second, it systematically extracts network resources from the kernel source code to generate protocol-aware syscall specifications and packet models. Finally, Pacaller employs an ensemble fuzzing methodology that coordinates syscall execution with packet injection to test their complex interplay. This integrated approach enables Pacaller to uncover deep vulnerabilities within the network stack that are inaccessible to conventional fuzzing approaches.
+Pacaller is a packet-syscall coordinated fuzzer designed for the Linux kernel network stack. It addresses the unique challenges of network stack testing by integrating three key techniques. First, Pacaller performs automated configuration analysis to enhance code reachability into network-specific modules. Second, it systematically extracts network resources from the kernel source code to generate protocol-aware syscall specifications and packet models. Finally, Pacaller employs an coordinated fuzzing methodology that coordinates syscall execution with packet injection to test their complex interplay. This integrated approach enables Pacaller to uncover deep vulnerabilities within the network stack that are inaccessible to conventional fuzzing approaches.
 
 ## Key Features
 
@@ -10,8 +10,8 @@ Pacaller is a packet-syscall ensemble fuzzer designed for the Linux kernel netwo
 -   **Resource-Driven Input Generation**
     The tool parses kernel C source code to automatically extract critical network entities such as data structures, type definitions, and constants. These extracted resources are then used to generate two core types of fuzzing inputs: accurate, protocol-aware syscall specifications in Syzlang format, and packet models for evaluating packet-handling logic.
 
--   **Packet-Syscall Ensemble Fuzzing**
-    Pacaller employs an ensemble fuzzing methodology that coordinates syscall execution and packet injection through a feedback-driven loop. The mechanism uses runtime information from syscall execution to guide packet generation, and vice versa. A weighted scoring strategy steers the fuzzing process toward network-related code areas, enabling the efficient discovery of vulnerabilities that depend on complex interactions.
+-   **Packet-Syscall Coordinated Fuzzing**
+    Pacaller employs an coordinated fuzzing methodology that coordinates syscall execution and packet injection through a feedback-driven loop. The mechanism uses runtime information from syscall execution to guide packet generation, and vice versa. A weighted scoring strategy steers the fuzzing process toward network-related code areas, enabling the efficient discovery of vulnerabilities that depend on complex interactions.
 
 ## Workflow
 
@@ -27,7 +27,7 @@ The workflow of Pacaller is organized into three main stages, which directly cor
     -   Syscall specifications and packet models are generated from the extracted network resources.
     -   The target kernel is compiled using the generated optimized configuration to prepare a specialized kernel image for fuzzing.
 
-3.  **Ensemble Fuzzing**
+3.  **Coordinated Fuzzing**
     This is the core execution stage. Pacaller operates in a tightly-coupled loop, creating syscall and packet payloads based on the generated specifications and models. These payloads are executed on a prepared VM instance, guided by coverage feedback to efficiently discover crashes.
 
 ## How to Use
@@ -51,6 +51,7 @@ This step corresponds to the **Fuzzing Input Generation** stage. Once resource e
 1.  **Syscall Specifications**: Generates `Syzlang` files that describe network-related syscalls and their complex data structure arguments.
 2.  **Packet Models**: Creates grammar-based models of protocol packets, which serve as the foundation for packet injection.
 
-#### Step 4: Launching the Ensemble Fuzzing
+#### Step 4: Launching the Coordinated Fuzzing
 
-With all the preparatory work complete (including the specially compiled kernel, syscall specifications, and packet models), you can now launch the **Ensemble Fuzzing** engine from the main `pacaller` directory. This will start the core fuzzing loop, which coordinates syscalls and packet injections to begin hunting for vulnerabilities in the target VM.
+
+With all the preparatory work complete (including the specially compiled kernel, syscall specifications, and packet models), you can now launch the **coordinated fuzzing** engine from the main `pacaller` directory. This will start the core fuzzing loop, which coordinates syscalls and packet injections to begin hunting for vulnerabilities in the target VM.
